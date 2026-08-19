@@ -1,5 +1,5 @@
 import { useLayoutEffect, useRef } from "react";
-import { gsap } from "../animations/gsapSetup";
+import { gsap, prefersReducedMotion } from "../animations/gsapSetup";
 import { revealUp } from "../animations/scrollAnimations";
 import { IMAGES } from "../data/images";
 import "./NewsEvents.css";
@@ -37,14 +37,15 @@ export default function NewsEvents() {
     const ctx = gsap.context(() => {
       revealUp(headingRef.current, { trigger: sectionRef.current });
 
+      const reduced = prefersReducedMotion();
       cardsRef.current.forEach((card, i) => {
         if (!card) return;
         gsap.from(card, {
           opacity: 0,
-          y: 46,
-          x: i % 2 === 0 ? -12 : 12,
-          duration: 0.9,
-          delay: i * 0.12,
+          y: reduced ? 0 : 46,
+          x: reduced ? 0 : i % 2 === 0 ? -12 : 12,
+          duration: reduced ? 0.4 : 0.9,
+          delay: reduced ? 0 : i * 0.12,
           ease: "power3.out",
           scrollTrigger: { trigger: sectionRef.current, start: "top 75%", once: true },
         });

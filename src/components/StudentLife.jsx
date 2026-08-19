@@ -15,6 +15,7 @@ const ITEMS = [
 ];
 
 export default function StudentLife() {
+  const wrapperRef = useRef(null);
   const desktopSectionRef = useRef(null);
   const trackRef = useRef(null);
   const mobileSectionRef = useRef(null);
@@ -34,13 +35,13 @@ export default function StudentLife() {
       });
 
       return () => mm.revert();
-    });
+    }, wrapperRef);
 
     return () => ctx.revert();
   }, []);
 
   return (
-    <section id="student-life" className="student-life-wrapper">
+    <section id="student-life" className="student-life-wrapper" ref={wrapperRef}>
       <div className="student-life-desktop" ref={desktopSectionRef}>
         <div className="student-life-track" ref={trackRef}>
           <div className="student-life-intro">

@@ -2,6 +2,7 @@ import { useLayoutEffect, useRef, useState } from "react";
 import { gsap, ScrollTrigger, prefersReducedMotion } from "../animations/gsapSetup";
 import { useApplicationModal } from "../context/ApplicationModalContext.jsx";
 import MobileMenu from "./MobileMenu.jsx";
+import schoolLogo from "../assets/images/school-logo-crest.jpeg";
 import "./Navbar.css";
 
 const LINKS = [
@@ -20,6 +21,12 @@ export default function Navbar({ navRef }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const localRef = useRef(null);
   const ref = navRef || localRef;
+  const hamburgerRef = useRef(null);
+
+  function closeMenu() {
+    setMenuOpen(false);
+    hamburgerRef.current?.focus();
+  }
 
   useLayoutEffect(() => {
     const st = ScrollTrigger.create({
@@ -52,12 +59,10 @@ export default function Navbar({ navRef }) {
       <header ref={ref} className={`navbar${scrolled ? " navbar--scrolled" : ""}`}>
         <div className="container navbar-inner">
           <a href="#home" className="navbar-logo" aria-label="Star of Bethlehem International School home">
-            <span className="navbar-logo-mark" aria-hidden="true">
-              ✦
-            </span>
+            <img className="navbar-logo-mark" src={schoolLogo} alt="" aria-hidden="true" />
             <span className="navbar-logo-text">
               Star of Bethlehem
-              <em>International School</em>
+              <em></em>
             </span>
           </a>
 
@@ -82,6 +87,7 @@ export default function Navbar({ navRef }) {
               aria-label="Open menu"
               aria-expanded={menuOpen}
               onClick={() => setMenuOpen(true)}
+              ref={hamburgerRef}
             >
               <span />
               <span />
@@ -91,7 +97,7 @@ export default function Navbar({ navRef }) {
         </div>
       </header>
 
-      <MobileMenu isOpen={menuOpen} onClose={() => setMenuOpen(false)} />
+      <MobileMenu isOpen={menuOpen} onClose={closeMenu} />
     </>
   );
 }

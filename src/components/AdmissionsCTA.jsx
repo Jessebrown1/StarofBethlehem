@@ -17,11 +17,7 @@ export default function AdmissionsCTA() {
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.from(sectionRef.current, {
-        opacity: 0,
-        duration: 1,
-        scrollTrigger: { trigger: sectionRef.current, start: "top 75%", once: true },
-      });
+      revealUp(sectionRef.current, { trigger: sectionRef.current, y: 0, duration: 1, start: "top 75%" });
       revealUp(headingRef.current, { trigger: sectionRef.current, delay: 0.1 });
       revealUp(textRef.current, { trigger: sectionRef.current, delay: 0.25 });
       staggerReveal(benefitsRef.current, { trigger: sectionRef.current, y: 20 });

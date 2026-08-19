@@ -227,7 +227,12 @@
   }
 
   .hero-copy .eyebrow {
-    display: none;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 0.9rem;
+  }
+
+  .hero-copy .eyebrow::before {
+    background: var(--gold-accent);
   }
 
   .hero-heading {

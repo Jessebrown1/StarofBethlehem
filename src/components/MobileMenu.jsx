@@ -1,4 +1,4 @@
-import { useLayoutEffect, useRef } from "react";
+import { useEffect, useLayoutEffect, useRef } from "react";
 import { gsap, prefersReducedMotion } from "../animations/gsapSetup";
 import { useApplicationModal } from "../context/ApplicationModalContext.jsx";
 import "./MobileMenu.css";
@@ -17,6 +17,7 @@ export default function MobileMenu({ isOpen, onClose }) {
   const { openModal } = useApplicationModal();
   const panelRef = useRef(null);
   const itemRefs = useRef([]);
+  const closeButtonRef = useRef(null);
 
   useLayoutEffect(() => {
     if (!isOpen) return undefined;
@@ -38,11 +39,45 @@ export default function MobileMenu({ isOpen, onClose }) {
     });
 
     document.body.classList.add("no-scroll");
+    closeButtonRef.current?.focus();
+
     return () => {
       ctx.revert();
       document.body.classList.remove("no-scroll");
     };
   }, [isOpen]);
+
+  useEffect(() => {
+    if (!isOpen) return undefined;
+
+    function handleKeyDown(e) {
+      if (e.key === "Escape") {
+        onClose();
+      } else if (e.key === "Tab") {
+        trapFocus(e);
+      }
+    }
+
+    function trapFocus(e) {
+      const focusable = panelRef.current?.querySelectorAll(
+        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+      );
+      if (!focusable || !focusable.length) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    }
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [isOpen, onClose]);
 
   if (!isOpen) return null;
 
@@ -58,7 +93,13 @@ export default function MobileMenu({ isOpen, onClose }) {
   return (
     <div className="mobile-menu" role="dialog" aria-modal="true" aria-label="Mobile navigation">
       <div className="mobile-menu-panel" ref={panelRef}>
-        <button type="button" className="mobile-menu-close" onClick={onClose} aria-label="Close menu">
+        <button
+          type="button"
+          className="mobile-menu-close"
+          onClick={onClose}
+          aria-label="Close menu"
+          ref={closeButtonRef}
+        >
           &times;
         </button>
 

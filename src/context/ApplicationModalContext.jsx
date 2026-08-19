@@ -14,7 +14,10 @@ export function ApplicationModalProvider({ children }) {
 
   const closeModal = useCallback(() => {
     setIsOpen(false);
-    if (triggerRef.current) {
+    // The trigger can be gone by the time the modal closes (e.g. Apply Now
+    // clicked from inside the mobile menu, which unmounts itself as part
+    // of the same click) — guard against focusing a detached node.
+    if (triggerRef.current && document.body.contains(triggerRef.current)) {
       triggerRef.current.focus();
     }
   }, []);

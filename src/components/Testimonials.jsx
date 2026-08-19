@@ -33,6 +33,7 @@ export default function Testimonials() {
   const headingRef = useRef(null);
   const quoteRef = useRef(null);
   const [index, setIndex] = useState(0);
+  const isFirstRender = useRef(true);
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
@@ -52,7 +53,21 @@ export default function Testimonials() {
   }, []);
 
   useEffect(() => {
-    if (!quoteRef.current) return;
+    // Skip on mount: the scroll-triggered `revealUp` above already owns the
+    // element's initial reveal. Running this crossfade on mount too would
+    // fade the quote to full opacity immediately, regardless of scroll
+    // position, undercutting the "reveal on scroll into view" behavior
+    // every other section has. The flag is reset on cleanup so that React
+    // 18 StrictMode's dev-only double-invoke (mount → cleanup → mount)
+    // still lands on "skip" both times, rather than animating on the
+    // second simulated mount.
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return () => {
+        isFirstRender.current = true;
+      };
+    }
+    if (!quoteRef.current) return undefined;
     if (prefersReducedMotion()) return;
     gsap.fromTo(
       quoteRef.current,

@@ -41,7 +41,7 @@ export default function Hero() {
       <div className="container hero-inner">
         <div className="hero-copy">
           <span className="eyebrow" ref={eyebrowRef}>
-            Star of Bethlehem International School
+            Star of Bethlehem 
           </span>
           <h1 className="hero-heading" ref={headingRef}>
             {"Raising Purposeful\nLeaders Through\nQuality Education."}

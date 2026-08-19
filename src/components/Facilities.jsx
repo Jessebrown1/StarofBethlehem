@@ -1,6 +1,6 @@
 import { useLayoutEffect, useRef } from "react";
 import { gsap, prefersReducedMotion } from "../animations/gsapSetup";
-import { revealUp, parallaxImage } from "../animations/scrollAnimations";
+import { revealUp, staggerReveal, parallaxImage } from "../animations/scrollAnimations";
 import { IMAGES } from "../data/images";
 import "./Facilities.css";
 
@@ -22,16 +22,10 @@ export default function Facilities() {
     const ctx = gsap.context(() => {
       revealUp(headingRef.current, { trigger: sectionRef.current });
 
-      imageRefs.current.forEach((img) => {
-        if (!img) return;
-        gsap.from(img.closest(".facility-item"), {
-          opacity: 0,
-          y: 40,
-          duration: 0.9,
-          ease: "power3.out",
-          scrollTrigger: { trigger: img, start: "top 88%", once: true },
-        });
-      });
+      const items = imageRefs.current
+        .filter(Boolean)
+        .map((img) => img.closest(".facility-item"));
+      staggerReveal(items, { trigger: sectionRef.current, y: 40, stagger: 0.08 });
 
       // Parallax is continuous (scrub) scroll-linked work — desktop only.
       // Six of these running at once is real cost on mobile hardware, and

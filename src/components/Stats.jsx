@@ -1,6 +1,6 @@
 import { useLayoutEffect, useRef } from "react";
 import { gsap } from "../animations/gsapSetup";
-import { animateCounter } from "../animations/scrollAnimations";
+import { animateCounter, staggerReveal } from "../animations/scrollAnimations";
 import "./Stats.css";
 
 const STATS = [
@@ -13,9 +13,12 @@ const STATS = [
 export default function Stats() {
   const sectionRef = useRef(null);
   const numberRefs = useRef([]);
+  const itemRefs = useRef([]);
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
+      staggerReveal(itemRefs.current, { trigger: sectionRef.current, y: 24 });
+
       STATS.forEach((stat, i) => {
         animateCounter(numberRefs.current[i], {
           target: stat.target,
@@ -32,7 +35,7 @@ export default function Stats() {
     <section className="stats-section" ref={sectionRef} aria-label="School statistics">
       <div className="container stats-grid">
         {STATS.map((stat, i) => (
-          <div className="stat-item" key={stat.label}>
+          <div className="stat-item" key={stat.label} ref={(el) => (itemRefs.current[i] = el)}>
             <span className="stat-number" ref={(el) => (numberRefs.current[i] = el)}>
               0{stat.suffix}
             </span>

@@ -1,21 +1,10 @@
 /* Shared responsive helpers. Component CSS handles most fluid sizing via
-   clamp()/min()/max(); this file covers cross-cutting breakpoint rules. */
-
-.desktop-only {
-  display: block;
-}
-.mobile-only {
-  display: none;
-}
-
-@media (max-width: 768px) {
-  .desktop-only {
-    display: none !important;
-  }
-  .mobile-only {
-    display: block;
-  }
-}
+   clamp()/min()/max(); this file covers cross-cutting breakpoint rules.
+   Note: sections with genuinely different desktop/mobile layouts (Navbar,
+   WhyChooseUs, StudentLife) each own their responsive visibility rules
+   directly, scoped to their own breakpoint — see the "Fix hamburger
+   showing on desktop" fix for why a shared unconditional utility class is
+   fragile here (cascade order can let a component rule silently beat it). */
 
 body.no-scroll {
   overflow: hidden;

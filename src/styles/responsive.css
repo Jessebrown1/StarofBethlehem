@@ -1,0 +1,35 @@
+/* Shared responsive helpers. Component CSS handles most fluid sizing via
+   clamp()/min()/max(); this file covers cross-cutting breakpoint rules. */
+
+.desktop-only {
+  display: block;
+}
+.mobile-only {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .desktop-only {
+    display: none !important;
+  }
+  .mobile-only {
+    display: block;
+  }
+}
+
+body.no-scroll {
+  overflow: hidden;
+}
+
+@media (max-width: 992px) {
+  :root {
+    --section-padding: clamp(3.5rem, 9vw, 5.5rem);
+  }
+}
+
+@media (max-width: 576px) {
+  :root {
+    --container-width: 90vw;
+    --section-padding: clamp(3rem, 12vw, 4rem);
+  }
+}

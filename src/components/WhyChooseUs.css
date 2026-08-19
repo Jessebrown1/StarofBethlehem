@@ -1,0 +1,197 @@
+.why-section {
+  position: relative;
+  background: var(--green-primary);
+}
+
+/* Mobile-first: pinned experience hidden, stacked mobile version shown */
+.why-pinned {
+  display: none;
+}
+
+.why-mobile {
+  padding: var(--section-padding) 0;
+}
+
+.why-mobile .eyebrow {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.why-mobile .section-heading {
+  color: var(--white);
+}
+
+.why-mobile-image {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  margin-bottom: 2rem;
+}
+
+.why-mobile-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.why-benefits-mobile {
+  margin-top: 2.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+}
+
+.why-benefit-mobile {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.1rem;
+  padding: 1rem 1.1rem;
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(var(--glass-blur)) saturate(160%);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(160%);
+  border: 1px solid var(--glass-border-dark);
+}
+
+.why-benefit-mobile h3 {
+  color: var(--white);
+  font-size: 1.05rem;
+  margin-bottom: 0.3rem;
+}
+
+.why-benefit-mobile p {
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 0.88rem;
+}
+
+.why-benefit-mobile .why-benefit-index {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.2rem;
+  height: 2.2rem;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--glass-border-dark);
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  color: var(--gold-accent);
+}
+
+/* ---------- Desktop pinned experience ---------- */
+@media (min-width: 993px) {
+  .why-section {
+    height: 400vh;
+  }
+
+  .why-mobile {
+    display: none;
+  }
+
+  .why-pinned {
+    display: grid;
+    height: 100vh;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .why-image-col {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .why-image-col img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .why-image-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(11, 61, 46, 0.15) 0%, rgba(11, 61, 46, 0.55) 100%);
+  }
+
+  .why-content-col {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 clamp(3rem, 6vw, 6rem);
+  }
+
+  .why-heading {
+    color: var(--white);
+  }
+
+  .why-benefits {
+    margin-top: 2.4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.6rem;
+  }
+
+  .why-benefit {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.3rem;
+    opacity: 0.45;
+    padding: 1rem 1.2rem;
+    border-radius: var(--radius-md);
+    background: transparent;
+    border: 1px solid transparent;
+    transition: opacity var(--transition-base), background var(--transition-base),
+      border-color var(--transition-base);
+  }
+
+  .why-benefit.is-active {
+    opacity: 1;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(var(--glass-blur)) saturate(160%);
+    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(160%);
+    border-color: var(--glass-border-dark);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  }
+
+  .why-benefit h3 {
+    color: var(--white);
+    font-size: 1.15rem;
+    margin-bottom: 0.35rem;
+  }
+
+  .why-benefit p {
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 0.9rem;
+    max-width: 420px;
+  }
+
+  .why-benefit-index {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.4rem;
+    height: 2.4rem;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid var(--glass-border-dark);
+    font-family: var(--font-display);
+    font-size: 0.9rem;
+    color: var(--gold-accent);
+  }
+
+  .why-progress {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 2.6rem;
+  }
+
+  .why-progress span {
+    height: 3px;
+    flex: 1;
+    background: rgba(255, 255, 255, 0.2);
+    transition: background var(--transition-base);
+  }
+
+  .why-progress span.is-active {
+    background: var(--gold-accent);
+  }
+}

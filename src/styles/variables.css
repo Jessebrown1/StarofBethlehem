@@ -1,0 +1,44 @@
+:root {
+  --green-primary: #0b3d2e;
+  --green-secondary: #145a43;
+  --green-light: #eaf4ef;
+  --green-pale: #f5faf7;
+
+  --white: #ffffff;
+  --off-white: #fafcfb;
+
+  --text-dark: #17201c;
+  --text-muted: #4a5a52;
+
+  --gold-accent: #c9a227;
+
+  --border-light: #dce8e1;
+
+  --font-display: "Playfair Display", "Georgia", serif;
+  --font-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+  --container-width: min(1320px, 92vw);
+  --section-padding: clamp(4rem, 8vw, 8rem);
+
+  --ease-premium: cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-base: 0.4s var(--ease-premium);
+
+  --shadow-soft: 0 20px 60px rgba(11, 61, 46, 0.08);
+  --shadow-card: 0 12px 40px rgba(11, 61, 46, 0.1);
+  --shadow-nav: 0 8px 30px rgba(11, 61, 46, 0.08);
+
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 16px;
+  --radius-pill: 999px;
+
+  /* Liquid Glass */
+  --glass-blur: 22px;
+  --glass-bg-light: rgba(255, 255, 255, 0.55);
+  --glass-bg-light-strong: rgba(255, 255, 255, 0.72);
+  --glass-border-light: rgba(255, 255, 255, 0.6);
+  --glass-bg-dark: rgba(11, 61, 46, 0.42);
+  --glass-border-dark: rgba(255, 255, 255, 0.22);
+  --glass-highlight: rgba(255, 255, 255, 0.35);
+  --glass-shadow: 0 8px 32px rgba(11, 61, 46, 0.14);
+}

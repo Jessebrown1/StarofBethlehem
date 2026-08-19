@@ -1,0 +1,74 @@
+.values-section {
+  background: var(--white);
+  border-bottom: 1px solid var(--border-light);
+}
+
+.values-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--border-light);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.value-card {
+  position: relative;
+  background: var(--white);
+  padding: 2.6rem 2rem;
+  transition: background var(--transition-base), transform var(--transition-base),
+    box-shadow var(--transition-base);
+}
+
+.value-card:hover {
+  background: var(--glass-bg-light);
+  backdrop-filter: blur(var(--glass-blur)) saturate(160%);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(160%);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-card), inset 0 1px 0 var(--glass-highlight);
+  z-index: 1;
+}
+
+.value-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--green-light);
+  border: 1px solid var(--border-light);
+  color: var(--green-secondary);
+  font-size: 1.2rem;
+  margin-bottom: 1.3rem;
+  transition: transform var(--transition-base), background var(--transition-base);
+}
+
+.value-card:hover .value-icon {
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(var(--glass-blur)) saturate(160%);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(160%);
+  transform: scale(1.08);
+}
+
+.value-card h3 {
+  font-size: 1.12rem;
+  margin-bottom: 0.6rem;
+}
+
+.value-card p {
+  font-size: 0.92rem;
+}
+
+@media (max-width: 992px) {
+  .values-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 576px) {
+  .values-grid {
+    grid-template-columns: 1fr;
+  }
+}

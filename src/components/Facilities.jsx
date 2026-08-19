@@ -1,0 +1,71 @@
+import { useLayoutEffect, useRef } from "react";
+import { gsap, prefersReducedMotion } from "../animations/gsapSetup";
+import { revealUp, parallaxImage } from "../animations/scrollAnimations";
+import { IMAGES } from "../data/images";
+import "./Facilities.css";
+
+const FACILITIES = [
+  { title: "Classrooms", image: IMAGES.facilityClassrooms, size: "lg" },
+  { title: "Science Laboratory", image: IMAGES.facilityScienceLab, size: "sm" },
+  { title: "ICT Laboratory", image: IMAGES.facilityICTLab, size: "sm" },
+  { title: "Library", image: IMAGES.facilityLibrary, size: "md" },
+  { title: "Sports Facilities", image: IMAGES.facilitySports, size: "md" },
+  { title: "Auditorium", image: IMAGES.facilityAuditorium, size: "sm" },
+];
+
+export default function Facilities() {
+  const sectionRef = useRef(null);
+  const headingRef = useRef(null);
+  const imageRefs = useRef([]);
+
+  useLayoutEffect(() => {
+    const ctx = gsap.context(() => {
+      revealUp(headingRef.current, { trigger: sectionRef.current });
+
+      imageRefs.current.forEach((img) => {
+        if (!img) return;
+        gsap.from(img.closest(".facility-item"), {
+          opacity: 0,
+          y: 40,
+          duration: 0.9,
+          ease: "power3.out",
+          scrollTrigger: { trigger: img, start: "top 88%", once: true },
+        });
+        if (!prefersReducedMotion()) {
+          parallaxImage(img, { distance: 36 });
+        }
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
+  return (
+    <section className="facilities-section section" ref={sectionRef}>
+      <div className="container">
+        <div className="facilities-header" ref={headingRef}>
+          <span className="eyebrow">Our Facilities</span>
+          <h2 className="section-heading">
+            Spaces Built for <span className="accent">Discovery</span>
+          </h2>
+        </div>
+
+        <div className="facilities-grid">
+          {FACILITIES.map((facility, i) => (
+            <div className={`facility-item facility-item--${facility.size}`} key={facility.title}>
+              <div className="facility-media">
+                <img
+                  ref={(el) => (imageRefs.current[i] = el)}
+                  src={facility.image}
+                  alt={`${facility.title} at Star of Bethlehem International School`}
+                  loading="lazy"
+                />
+              </div>
+              <span className="facility-label">{facility.title}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}

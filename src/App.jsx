@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { ThemeProvider } from "./context/ThemeContext.jsx";
 import { ApplicationModalProvider } from "./context/ApplicationModalContext.jsx";
 import { initSmoothAnchorScroll } from "./animations/smoothAnchorScroll";
 import Navbar from "./components/Navbar.jsx";
@@ -13,6 +14,8 @@ import AdmissionsCTA from "./components/AdmissionsCTA.jsx";
 import StudentLife from "./components/StudentLife.jsx";
 import NewsEvents from "./components/NewsEvents.jsx";
 import Testimonials from "./components/Testimonials.jsx";
+import FAQSection from "./components/FAQSection.jsx";
+import ContactSection from "./components/ContactSection.jsx";
 import FinalCTA from "./components/FinalCTA.jsx";
 import Footer from "./components/Footer.jsx";
 
@@ -20,27 +23,31 @@ function App() {
   useEffect(() => initSmoothAnchorScroll(), []);
 
   return (
-    <ApplicationModalProvider>
-      <a href="#main-content" className="skip-link">
-        Skip to content
-      </a>
-      <Navbar />
-      <main id="main-content">
-        <Hero />
-        <ValuesSection />
-        <AboutSection />
-        <Stats />
-        <AcademicPrograms />
-        <WhyChooseUs />
-        <Facilities />
-        <AdmissionsCTA />
-        <StudentLife />
-        <NewsEvents />
-        <Testimonials />
-        <FinalCTA />
-      </main>
-      <Footer />
-    </ApplicationModalProvider>
+    <ThemeProvider>
+      <ApplicationModalProvider>
+        <a href="#main-content" className="skip-link">
+          Skip to content
+        </a>
+        <Navbar />
+        <main id="main-content">
+          <Hero />
+          <ValuesSection />
+          <AboutSection />
+          <Stats />
+          <AcademicPrograms />
+          <WhyChooseUs />
+          <Facilities />
+          <AdmissionsCTA />
+          <StudentLife />
+          <NewsEvents />
+          <Testimonials />
+          <FAQSection />
+          <ContactSection />
+          <FinalCTA />
+        </main>
+        <Footer />
+      </ApplicationModalProvider>
+    </ThemeProvider>
   );
 }
 

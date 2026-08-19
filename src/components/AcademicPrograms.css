@@ -16,8 +16,10 @@
 
 .academics-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 1.6rem;
+  max-width: 900px;
+  margin: 0 auto;
 }
 
 .academic-card {
@@ -32,7 +34,7 @@
 .academic-card:hover {
   transform: translateY(-6px);
   box-shadow: var(--shadow-card);
-  border-color: var(--green-secondary);
+  border-color: var(--text-accent);
 }
 
 .academic-card-image {
@@ -79,7 +81,7 @@
   gap: 0.4rem;
   font-size: 0.82rem;
   font-weight: 600;
-  color: var(--green-secondary);
+  color: var(--text-accent);
 }
 
 .academic-card-link span {

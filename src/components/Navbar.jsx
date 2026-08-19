@@ -2,16 +2,18 @@ import { useLayoutEffect, useRef, useState } from "react";
 import { gsap, ScrollTrigger, prefersReducedMotion } from "../animations/gsapSetup";
 import { useApplicationModal } from "../context/ApplicationModalContext.jsx";
 import MobileMenu from "./MobileMenu.jsx";
+import ThemeToggle from "./ThemeToggle.jsx";
 import schoolLogo from "../assets/images/school-logo-crest.jpeg";
 import "./Navbar.css";
 
+// Kept deliberately short — the mobile menu and footer carry the full
+// sitemap (Home, News & Events, FAQ included), so the desktop bar only
+// needs the handful of links a visitor actually reaches for.
 const LINKS = [
-  { label: "Home", href: "#home" },
   { label: "About Us", href: "#about" },
   { label: "Academics", href: "#academics" },
   { label: "Admissions", href: "#admissions" },
   { label: "Student Life", href: "#student-life" },
-  { label: "News & Events", href: "#news" },
   { label: "Contact Us", href: "#contact" },
 ];
 
@@ -60,10 +62,7 @@ export default function Navbar({ navRef }) {
         <div className="container navbar-inner">
           <a href="#home" className="navbar-logo" aria-label="Star of Bethlehem International School home">
             <img className="navbar-logo-mark" src={schoolLogo} alt="" aria-hidden="true" />
-            <span className="navbar-logo-text">
-              Star of Bethlehem
-              <em></em>
-            </span>
+            <span className="navbar-logo-text">Star of Bethlehem</span>
           </a>
 
           <nav className="navbar-links" aria-label="Primary">
@@ -77,6 +76,8 @@ export default function Navbar({ navRef }) {
           </nav>
 
           <div className="navbar-actions">
+            <ThemeToggle className="navbar-theme-toggle" />
+
             <button type="button" className="btn btn-primary navbar-apply-btn" onClick={openModal}>
               Apply Now
             </button>

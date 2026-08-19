@@ -12,6 +12,13 @@
 
   --gold-accent: #c9a227;
 
+  /* Accent text (eyebrows, italic "accent" heading words, small icons on
+     light cards) — split from --green-secondary so dark mode can swap it
+     for something legible without touching the deep-green brand fills
+     (buttons, footer, WhyChooseUs, etc.), which stay constant across
+     themes since those sections are "always dark" by design. */
+  --text-accent: var(--green-secondary);
+
   --border-light: #dce8e1;
 
   --font-display: "Playfair Display", "Georgia", serif;
@@ -32,7 +39,14 @@
   --radius-lg: 16px;
   --radius-pill: 999px;
 
-  /* Liquid Glass */
+  /*
+   * Liquid Glass. --glass-bg-light/-strong/-border/-highlight are for
+   * accents that sit on a photo or an "always dark" section (buttons,
+   * the hero stat badge) and must stay light-glass in BOTH themes for
+   * contrast — they are intentionally not remapped below. --glass-surface-*
+   * is the separate set for actual page surfaces (navbar, cards, modal)
+   * that should invert to dark glass in dark mode.
+   */
   --glass-blur: 22px;
   --glass-bg-light: rgba(255, 255, 255, 0.55);
   --glass-bg-light-strong: rgba(255, 255, 255, 0.72);
@@ -41,4 +55,42 @@
   --glass-border-dark: rgba(255, 255, 255, 0.22);
   --glass-highlight: rgba(255, 255, 255, 0.35);
   --glass-shadow: 0 8px 32px rgba(11, 61, 46, 0.14);
+
+  --glass-surface-bg: rgba(255, 255, 255, 0.55);
+  --glass-surface-bg-strong: rgba(255, 255, 255, 0.92);
+  --glass-surface-border: rgba(255, 255, 255, 0.6);
+  --glass-surface-highlight: rgba(255, 255, 255, 0.35);
+}
+
+/*
+ * Dark theme — remaps the SURFACE tokens (page background, cards, borders,
+ * body text, glass panels) so every section built from those variables
+ * adapts automatically. --green-primary/--green-secondary are deliberately
+ * NOT remapped here: they're used as solid fills for the brand's "always
+ * dark" accent sections (buttons, footer, WhyChooseUs, AdmissionsCTA,
+ * mobile menu) which should look the same in both themes, not invert.
+ */
+:root[data-theme="dark"] {
+  --green-pale: #101a15;
+  --green-light: #17251e;
+
+  --white: #16221c;
+  --off-white: #0c1310;
+
+  --text-dark: #edf3f0;
+  --text-muted: #9fb5a9;
+  --text-accent: #6fcf9e;
+
+  --gold-accent: #d8b544;
+
+  --border-light: rgba(255, 255, 255, 0.1);
+
+  --shadow-soft: 0 20px 60px rgba(0, 0, 0, 0.5);
+  --shadow-card: 0 12px 40px rgba(0, 0, 0, 0.45);
+  --shadow-nav: 0 8px 30px rgba(0, 0, 0, 0.4);
+
+  --glass-surface-bg: rgba(255, 255, 255, 0.06);
+  --glass-surface-bg-strong: rgba(22, 34, 28, 0.9);
+  --glass-surface-border: rgba(255, 255, 255, 0.14);
+  --glass-surface-highlight: rgba(255, 255, 255, 0.08);
 }

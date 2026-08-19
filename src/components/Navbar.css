@@ -24,10 +24,14 @@
    * the same visual read (a light floating pill) at effectively zero cost.
    */
   background: rgba(255, 255, 255, 0.86);
-  border: 1px solid var(--glass-border-light);
-  box-shadow: inset 0 1px 0 var(--glass-highlight);
+  border: 1px solid var(--glass-surface-border);
+  box-shadow: inset 0 1px 0 var(--glass-surface-highlight);
   transition: background var(--transition-base), box-shadow var(--transition-base),
     padding var(--transition-base), border-color var(--transition-base);
+}
+
+:root[data-theme="dark"] .navbar-inner {
+  background: rgba(18, 28, 23, 0.86);
 }
 
 .navbar--scrolled {
@@ -36,8 +40,12 @@
 
 .navbar--scrolled .navbar-inner {
   background: rgba(255, 255, 255, 0.97);
-  box-shadow: var(--shadow-nav), inset 0 1px 0 var(--glass-highlight);
+  box-shadow: var(--shadow-nav), inset 0 1px 0 var(--glass-surface-highlight);
   padding: 0.65rem 1.4rem;
+}
+
+:root[data-theme="dark"] .navbar--scrolled .navbar-inner {
+  background: rgba(18, 28, 23, 0.97);
 }
 
 /*
@@ -48,13 +56,13 @@
  */
 @media (min-width: 993px) {
   .navbar-inner {
-    background: var(--glass-bg-light);
+    background: var(--glass-surface-bg);
     backdrop-filter: blur(var(--glass-blur)) saturate(160%);
     -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(160%);
   }
 
   .navbar--scrolled .navbar-inner {
-    background: var(--glass-bg-light-strong);
+    background: var(--glass-surface-bg-strong);
   }
 }
 
@@ -77,20 +85,7 @@
   font-weight: 600;
   font-size: 1.1rem;
   color: var(--green-primary);
-  display: flex;
-  flex-direction: column;
-  line-height: 1.2;
   white-space: nowrap;
-}
-
-.navbar-logo-text em {
-  font-style: normal;
-  font-family: var(--font-body);
-  font-size: 0.6rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  font-weight: 500;
-  color: var(--gold-accent);
 }
 
 .navbar-links {
@@ -165,6 +160,29 @@
   background: var(--green-primary);
 }
 
+/* The navbar surface inverts to dark glass in dark mode (above), but its
+   text/icons use the constant brand green — needs its own light-on-dark
+   pass here rather than riding the theme-aware text tokens, so it keeps
+   using the same brand green in light mode instead of body-text gray. */
+:root[data-theme="dark"] .navbar-logo-text,
+:root[data-theme="dark"] .navbar-links a {
+  color: var(--text-dark);
+}
+
+:root[data-theme="dark"] .navbar-hamburger span {
+  background: var(--text-dark);
+}
+
+:root[data-theme="dark"] .navbar-hamburger:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* On mobile the theme toggle lives inside the full-screen menu instead —
+   one less icon crowding the compact bar. */
+.navbar-theme-toggle {
+  display: none;
+}
+
 @media (min-width: 993px) {
   .navbar-links {
     display: block;
@@ -176,5 +194,9 @@
 
   .navbar-hamburger {
     display: none;
+  }
+
+  .navbar-theme-toggle {
+    display: flex;
   }
 }

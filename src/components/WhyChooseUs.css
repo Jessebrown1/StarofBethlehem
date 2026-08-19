@@ -17,7 +17,10 @@
 }
 
 .why-mobile .section-heading {
-  color: var(--white);
+  /* Literal white: this whole section sits on a constant deep-green
+     background regardless of site theme (see .why-section above), so
+     text here must not invert to a dark color in dark mode. */
+  color: #ffffff;
 }
 
 .why-mobile-image {
@@ -53,7 +56,10 @@
 }
 
 .why-benefit-mobile h3 {
-  color: var(--white);
+  /* Literal white: this whole section sits on a constant deep-green
+     background regardless of site theme (see .why-section above), so
+     text here must not invert to a dark color in dark mode. */
+  color: #ffffff;
   font-size: 1.05rem;
   margin-bottom: 0.3rem;
 }
@@ -119,7 +125,10 @@
   }
 
   .why-heading {
-    color: var(--white);
+    /* Literal white: this whole section sits on a constant deep-green
+     background regardless of site theme (see .why-section above), so
+     text here must not invert to a dark color in dark mode. */
+  color: #ffffff;
   }
 
   .why-benefits {
@@ -152,7 +161,10 @@
   }
 
   .why-benefit h3 {
-    color: var(--white);
+    /* Literal white: this whole section sits on a constant deep-green
+     background regardless of site theme (see .why-section above), so
+     text here must not invert to a dark color in dark mode. */
+  color: #ffffff;
     font-size: 1.15rem;
     margin-bottom: 0.35rem;
   }

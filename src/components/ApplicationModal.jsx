@@ -33,9 +33,6 @@ const CLASS_OPTIONS = [
   "JHS 1",
   "JHS 2",
   "JHS 3",
-  "SHS 1",
-  "SHS 2",
-  "SHS 3",
 ];
 
 function validate(values) {

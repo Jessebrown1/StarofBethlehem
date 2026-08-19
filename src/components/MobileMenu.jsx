@@ -1,6 +1,7 @@
 import { useEffect, useLayoutEffect, useRef } from "react";
 import { gsap, prefersReducedMotion } from "../animations/gsapSetup";
 import { useApplicationModal } from "../context/ApplicationModalContext.jsx";
+import ThemeToggle from "./ThemeToggle.jsx";
 import "./MobileMenu.css";
 
 const LINKS = [
@@ -10,6 +11,7 @@ const LINKS = [
   { label: "Admissions", href: "#admissions" },
   { label: "Student Life", href: "#student-life" },
   { label: "News & Events", href: "#news" },
+  { label: "FAQ", href: "#faq" },
   { label: "Contact Us", href: "#contact" },
 ];
 
@@ -93,15 +95,19 @@ export default function MobileMenu({ isOpen, onClose }) {
   return (
     <div className="mobile-menu" role="dialog" aria-modal="true" aria-label="Mobile navigation">
       <div className="mobile-menu-panel" ref={panelRef}>
-        <button
-          type="button"
-          className="mobile-menu-close"
-          onClick={onClose}
-          aria-label="Close menu"
-          ref={closeButtonRef}
-        >
-          &times;
-        </button>
+        <div className="mobile-menu-top">
+          <ThemeToggle className="mobile-menu-theme-toggle" />
+
+          <button
+            type="button"
+            className="mobile-menu-close"
+            onClick={onClose}
+            aria-label="Close menu"
+            ref={closeButtonRef}
+          >
+            &times;
+          </button>
+        </div>
 
         <nav aria-label="Mobile primary">
           <ul>

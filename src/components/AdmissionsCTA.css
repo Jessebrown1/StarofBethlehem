@@ -31,7 +31,9 @@
 }
 
 .admissions-content .section-heading {
-  color: var(--white);
+  /* Literal white: section is permanently dark (deep-green + photo
+     overlay) regardless of site theme. */
+  color: #ffffff;
 }
 
 .admissions-content > p {

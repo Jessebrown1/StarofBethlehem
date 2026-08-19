@@ -20,14 +20,8 @@ const PROGRAMS = [
   {
     title: "JHS / Middle School",
     range: "JHS 1 – 3",
-    description: "Rigorous preparation for BECE success and the transition into senior high.",
+    description: "Rigorous preparation for BECE success, capping a strong foundational education.",
     image: IMAGES.academicJHS,
-  },
-  {
-    title: "SHS / High School",
-    range: "SHS 1 – 3",
-    description: "Advanced academics and mentorship preparing students for global universities.",
-    image: IMAGES.academicSHS,
   },
 ];
 

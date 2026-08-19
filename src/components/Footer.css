@@ -18,7 +18,9 @@
   gap: 0.5rem;
   font-family: var(--font-display);
   font-size: 1.2rem;
-  color: var(--white);
+  /* Literal white: footer background is a fixed hardcoded dark green
+     regardless of site theme. */
+  color: #ffffff;
 }
 
 .footer-logo span {
@@ -33,7 +35,9 @@
 }
 
 .footer-col h3 {
-  color: var(--white);
+  /* Literal white: footer background is a fixed hardcoded dark green
+     regardless of site theme. */
+  color: #ffffff;
   font-size: 0.85rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;

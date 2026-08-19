@@ -10,21 +10,31 @@
   background: linear-gradient(160deg, rgba(11, 61, 46, 0.88) 0%, rgba(10, 46, 34, 0.94) 100%);
   backdrop-filter: blur(28px) saturate(160%);
   -webkit-backdrop-filter: blur(28px) saturate(160%);
-  color: var(--white);
+  /* Literal white: panel background is a fixed dark gradient regardless
+     of site theme. */
+  color: #ffffff;
   display: flex;
   flex-direction: column;
   padding: 1.5rem 2rem 3rem;
   overflow-y: auto;
 }
 
+.mobile-menu-top {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.75rem;
+}
+
 .mobile-menu-close {
-  align-self: flex-end;
   width: 44px;
   height: 44px;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.18);
-  color: var(--white);
+  /* Literal white: panel background is a fixed dark gradient regardless
+     of site theme. */
+  color: #ffffff;
   font-size: 1.9rem;
   line-height: 1;
   display: flex;
@@ -36,6 +46,22 @@
 .mobile-menu-close:hover {
   background: rgba(255, 255, 255, 0.12);
   transform: rotate(90deg);
+}
+
+/* Scoped with a descendant combinator (not just the modifier class alone)
+   so this reliably beats ThemeToggle's own base color rule regardless of
+   which CSS file happens to load last in the bundle. */
+.mobile-menu-panel .mobile-menu-theme-toggle {
+  width: 44px;
+  height: 44px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  /* Literal white: panel background is a fixed dark gradient regardless
+     of site theme, unlike the navbar's version of this button. */
+  color: #ffffff;
+}
+
+.mobile-menu-panel .mobile-menu-theme-toggle:hover {
+  background: rgba(255, 255, 255, 0.12);
 }
 
 .mobile-menu nav {
@@ -55,7 +81,9 @@
   font-family: var(--font-display);
   font-size: 1.7rem;
   font-weight: 500;
-  color: var(--white);
+  /* Literal white: panel background is a fixed dark gradient regardless
+     of site theme. */
+  color: #ffffff;
   border-bottom: 1px solid rgba(255, 255, 255, 0.14);
   transition: color var(--transition-base), padding-left var(--transition-base);
 }

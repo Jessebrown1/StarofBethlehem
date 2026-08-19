@@ -15,7 +15,7 @@
   background: rgba(255, 255, 255, 0.92);
   backdrop-filter: blur(var(--glass-blur)) saturate(160%);
   -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(160%);
-  border: 1px solid var(--glass-border-light);
+  border: 1px solid var(--glass-surface-border);
   width: min(760px, 100%);
   max-height: min(88vh, 900px);
   overflow-y: auto;
@@ -23,7 +23,11 @@
   -ms-overflow-style: none;
   border-radius: var(--radius-lg);
   padding: clamp(2rem, 4vw, 3.2rem);
-  box-shadow: var(--shadow-soft), inset 0 1px 0 var(--glass-highlight);
+  box-shadow: var(--shadow-soft), inset 0 1px 0 var(--glass-surface-highlight);
+}
+
+:root[data-theme="dark"] .app-modal {
+  background: rgba(20, 31, 25, 0.94);
 }
 
 .app-modal::-webkit-scrollbar {
@@ -80,7 +84,7 @@ legend {
   letter-spacing: 0.16em;
   text-transform: uppercase;
   font-weight: 700;
-  color: var(--green-secondary);
+  color: var(--text-accent);
   margin-bottom: 0.4rem;
   padding: 0;
 }
@@ -120,7 +124,7 @@ legend {
 .field select:focus,
 .field textarea:focus {
   outline: none;
-  border-color: var(--green-secondary);
+  border-color: var(--text-accent);
   box-shadow: 0 0 0 3px rgba(20, 90, 67, 0.12);
   background: var(--white);
 }
@@ -169,7 +173,7 @@ legend {
   height: 60px;
   border-radius: 50%;
   background: var(--green-light);
-  color: var(--green-primary);
+  color: var(--text-accent);
   display: flex;
   align-items: center;
   justify-content: center;

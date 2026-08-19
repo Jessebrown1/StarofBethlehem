@@ -9,6 +9,8 @@ const QUICK_LINKS = [
   { label: "Admissions", href: "#admissions" },
   { label: "Student Life", href: "#student-life" },
   { label: "News & Events", href: "#news" },
+  { label: "FAQ", href: "#faq" },
+  { label: "Contact Us", href: "#contact" },
 ];
 
 export default function Footer() {
@@ -23,7 +25,7 @@ export default function Footer() {
   }, []);
 
   return (
-    <footer id="contact" className="footer" ref={footerRef}>
+    <footer className="footer" ref={footerRef}>
       <div className="container footer-inner">
         <div className="footer-brand">
           <span className="footer-logo">

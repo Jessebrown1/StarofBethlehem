@@ -1,6 +1,7 @@
 import { useLayoutEffect, useRef } from "react";
 import { gsap } from "../animations/gsapSetup";
 import { animateCounter, staggerReveal } from "../animations/scrollAnimations";
+import { IMAGES } from "../data/images";
 import "./Stats.css";
 
 const STATS = [
@@ -33,6 +34,9 @@ export default function Stats() {
 
   return (
     <section className="stats-section" ref={sectionRef} aria-label="School statistics">
+      <img className="stats-bg" src={IMAGES.finalCTA} alt="" aria-hidden="true" loading="lazy" />
+      <div className="stats-overlay" />
+
       <div className="container stats-grid">
         {STATS.map((stat, i) => (
           <div className="stat-item" key={stat.label} ref={(el) => (itemRefs.current[i] = el)}>

@@ -14,9 +14,9 @@ const TESTIMONIALS = [
   },
   {
     quote:
-      "The academic standards here are exceptional. My son was well prepared for his BECE and is thriving in senior high school.",
+      "The academic standards here are exceptional. My son was thoroughly prepared for his BECE and left with real confidence.",
     name: "Mr. Kwame Mensah",
-    role: "Parent of an SHS graduate",
+    role: "Parent of a JHS graduate",
     image: IMAGES.testimonial2,
   },
   {

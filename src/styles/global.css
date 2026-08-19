@@ -132,7 +132,7 @@ p {
   letter-spacing: 0.22em;
   text-transform: uppercase;
   font-weight: 600;
-  color: var(--green-secondary);
+  color: var(--text-accent);
 }
 
 .eyebrow::before {
@@ -143,6 +143,14 @@ p {
   display: inline-block;
 }
 
+/* For eyebrows on sections that are dark regardless of site theme
+   (AdmissionsCTA, WhyChooseUs's pinned panel) — --text-accent inverts
+   with the theme, which would put low-contrast dark-green text on an
+   already-dark background. */
+.eyebrow--light {
+  color: rgba(255, 255, 255, 0.85);
+}
+
 .section-heading {
   font-size: clamp(2rem, 3.4vw, 3.1rem);
   letter-spacing: -0.01em;
@@ -151,7 +159,7 @@ p {
 }
 
 .section-heading .accent {
-  color: var(--green-secondary);
+  color: var(--text-accent);
   font-style: italic;
 }
 
@@ -210,7 +218,9 @@ select:focus-visible {
 
 .btn-primary {
   background: var(--green-primary);
-  color: var(--white);
+  /* Literal white: background is the constant brand green in both
+     themes, so the text must not invert along with the page. */
+  color: #ffffff;
 }
 
 .btn-primary:hover {
@@ -231,7 +241,7 @@ select:focus-visible {
 .btn-outline:hover {
   transform: translateY(-3px) scale(1.02);
   background: var(--green-primary);
-  color: var(--white);
+  color: #ffffff;
   box-shadow: 0 14px 30px rgba(11, 61, 46, 0.18);
 }
 
@@ -246,7 +256,10 @@ select:focus-visible {
 
 .btn-light:hover {
   transform: translateY(-3px) scale(1.02);
-  background: var(--white);
+  /* Literal white: btn-light is used on sections that are permanently
+     dark regardless of theme (AdmissionsCTA, FinalCTA) — it needs to
+     stay a bright pill for contrast, not invert with the page. */
+  background: #ffffff;
   box-shadow: 0 14px 30px rgba(0, 0, 0, 0.18);
 }
 
@@ -254,7 +267,9 @@ select:focus-visible {
   background: var(--glass-bg-dark);
   backdrop-filter: blur(var(--glass-blur)) saturate(160%);
   -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(160%);
-  color: var(--white);
+  /* Literal white: used on sections that are permanently dark regardless
+     of theme (FinalCTA), same reasoning as .btn-light above. */
+  color: #ffffff;
   border: 1px solid var(--glass-border-dark);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15);
 }
@@ -262,7 +277,7 @@ select:focus-visible {
 .btn-ghost-light:hover {
   transform: translateY(-3px) scale(1.02);
   background: rgba(255, 255, 255, 0.16);
-  border-color: var(--white);
+  border-color: #ffffff;
 }
 
 .divider {
@@ -286,7 +301,7 @@ select:focus-visible {
   left: 1rem;
   top: -60px;
   background: var(--green-primary);
-  color: var(--white);
+  color: #ffffff;
   padding: 0.8rem 1.2rem;
   z-index: 2000;
   border-radius: var(--radius-sm);

@@ -1,0 +1,113 @@
+.faq-section {
+  background: var(--green-pale);
+}
+
+.faq-header {
+  max-width: 620px;
+  margin: 0 auto 3rem;
+  text-align: center;
+}
+
+.faq-header .section-heading,
+.faq-header .section-lede {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.faq-list {
+  max-width: 780px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.faq-item {
+  background: var(--white);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  transition: border-color var(--transition-base), box-shadow var(--transition-base);
+}
+
+.faq-item.is-open {
+  border-color: var(--text-accent);
+  box-shadow: var(--shadow-card);
+}
+
+.faq-question {
+  font-family: var(--font-body);
+  font-size: 1rem;
+}
+
+.faq-question button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.2rem 1.4rem;
+  text-align: left;
+  font-weight: 600;
+  font-size: 0.98rem;
+  color: var(--text-dark);
+  transition: color var(--transition-base);
+}
+
+.faq-item.is-open .faq-question button {
+  color: var(--text-accent);
+}
+
+.faq-chevron {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--green-light);
+  color: var(--text-accent);
+  transition: transform var(--transition-base), background var(--transition-base);
+}
+
+.faq-chevron svg {
+  width: 15px;
+  height: 15px;
+}
+
+.faq-item.is-open .faq-chevron {
+  transform: rotate(180deg);
+  background: var(--gold-accent);
+  color: var(--white);
+}
+
+/* Smooth height animation without JS measuring scrollHeight: a 0fr/1fr
+   grid row transitions cleanly, and the inner overflow:hidden clips the
+   content while it's collapsed. */
+.faq-answer-wrapper {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows var(--transition-base);
+}
+
+.faq-item.is-open .faq-answer-wrapper {
+  grid-template-rows: 1fr;
+}
+
+.faq-answer-inner {
+  overflow: hidden;
+}
+
+.faq-answer-inner p {
+  padding: 0 1.4rem 1.3rem;
+  font-size: 0.92rem;
+  line-height: 1.65;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .faq-answer-wrapper,
+  .faq-chevron {
+    transition: none;
+  }
+}

@@ -26,6 +26,15 @@
   color: var(--green-primary);
 }
 
+/* Desktop hero background inverts to a dark gradient in dark mode (it's
+   built from --green-pale/--off-white), so the heading needs light text
+   there too. Below 768px this is superseded by the mobile hero's own
+   literal-white rule (higher specificity), which is correct either way
+   since --text-dark resolves to a light color in dark mode. */
+:root[data-theme="dark"] .hero-heading {
+  color: var(--text-dark);
+}
+
 .hero-description {
   margin-top: 1.6rem;
   max-width: 480px;
@@ -116,7 +125,7 @@
   width: 4px;
   height: 8px;
   border-radius: 4px;
-  background: var(--green-secondary);
+  background: var(--text-accent);
   animation: hero-scroll-cue-move 1.8s ease-in-out infinite;
 }
 
@@ -164,7 +173,7 @@
 @media (max-width: 768px) {
   .hero {
     padding: 0;
-    min-height: 100svh;
+    height: 100vh;
     display: block;
     background: var(--green-primary);
   }
@@ -174,7 +183,7 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    min-height: 100svh;
+    height: 100%;
     padding: 0 6vw calc(2.4rem + env(safe-area-inset-bottom, 0px));
     gap: 0;
   }
@@ -236,7 +245,10 @@
   }
 
   .hero-heading {
-    color: var(--white);
+    /* Literal white, not var(--white): this heading always sits over a
+       dark photo overlay regardless of site theme, so it must not invert
+       to a dark color along with the rest of the page in dark mode. */
+    color: #ffffff;
     text-shadow: 0 2px 20px rgba(0, 0, 0, 0.25);
   }
 
@@ -256,13 +268,13 @@
 
   .hero-buttons .btn-outline {
     background: rgba(255, 255, 255, 0.12);
-    color: var(--white);
+    color: #ffffff;
     border-color: rgba(255, 255, 255, 0.4);
   }
 
   .hero-buttons .btn-outline:hover {
     background: rgba(255, 255, 255, 0.22);
-    color: var(--white);
+    color: #ffffff;
   }
 
   .hero-scroll-cue {

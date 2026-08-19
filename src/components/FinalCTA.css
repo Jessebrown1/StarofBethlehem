@@ -36,7 +36,9 @@
 
 .final-cta-heading {
   font-size: clamp(2.4rem, 5vw, 4rem);
-  color: var(--white);
+  /* Literal white: always on a photo + dark overlay, regardless of
+     site theme. */
+  color: #ffffff;
   white-space: pre-line;
 }
 

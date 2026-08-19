@@ -34,7 +34,6 @@ export const IMAGES = {
   academicEarlyYears: classroomCelebration,
   academicPrimary: campusAdminBlock,
   academicJHS: potteryCraft,
-  academicSHS: competitionTrophy,
 
   facilityClassrooms: classroomCelebration,
   facilityScienceLab: classroomCelebration,

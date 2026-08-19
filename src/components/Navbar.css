@@ -15,9 +15,15 @@
   gap: 1.5rem;
   padding: 0.85rem 1.4rem;
   border-radius: var(--radius-pill);
-  background: var(--glass-bg-light);
-  backdrop-filter: blur(var(--glass-blur)) saturate(160%);
-  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(160%);
+  /*
+   * No backdrop-filter here: the navbar is `position: fixed`, so a blurred
+   * backdrop has to be recomputed on every scroll frame for the entire
+   * page underneath it. That's one of the most expensive things a mobile
+   * GPU can be asked to do continuously and is what caused scroll input to
+   * lag and "catch up" in bursts. A solid, near-opaque background keeps
+   * the same visual read (a light floating pill) at effectively zero cost.
+   */
+  background: rgba(255, 255, 255, 0.86);
   border: 1px solid var(--glass-border-light);
   box-shadow: inset 0 1px 0 var(--glass-highlight);
   transition: background var(--transition-base), box-shadow var(--transition-base),
@@ -29,9 +35,27 @@
 }
 
 .navbar--scrolled .navbar-inner {
-  background: var(--glass-bg-light-strong);
+  background: rgba(255, 255, 255, 0.97);
   box-shadow: var(--shadow-nav), inset 0 1px 0 var(--glass-highlight);
   padding: 0.65rem 1.4rem;
+}
+
+/*
+ * Desktop devices have far more GPU headroom, and the navbar isn't
+ * competing with a full-bleed image behind it the way the mobile hero is —
+ * safe to bring the real glass blur back above the breakpoint where the
+ * pinned/horizontal-scroll sections also start.
+ */
+@media (min-width: 993px) {
+  .navbar-inner {
+    background: var(--glass-bg-light);
+    backdrop-filter: blur(var(--glass-blur)) saturate(160%);
+    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(160%);
+  }
+
+  .navbar--scrolled .navbar-inner {
+    background: var(--glass-bg-light-strong);
+  }
 }
 
 .navbar-logo {

@@ -27,7 +27,14 @@ export default function AboutSection() {
         direction: "bottom",
         start: "top 85%",
       });
-      parallaxImage(imageRef.current, { distance: 30, trigger: sectionRef.current });
+
+      // Parallax is a continuous scroll-linked (scrub) tween — desktop only.
+      // Mobile GPUs/CPUs pay for that recalculation on every scroll frame,
+      // and it adds up fast on a long page; skip it on smaller viewports.
+      const mm = gsap.matchMedia();
+      mm.add("(min-width: 993px)", () => {
+        parallaxImage(imageRef.current, { distance: 30, trigger: sectionRef.current });
+      });
     }, sectionRef);
 
     return () => ctx.revert();

@@ -31,10 +31,20 @@ export default function Facilities() {
           ease: "power3.out",
           scrollTrigger: { trigger: img, start: "top 88%", once: true },
         });
-        if (!prefersReducedMotion()) {
-          parallaxImage(img, { distance: 36 });
-        }
       });
+
+      // Parallax is continuous (scrub) scroll-linked work — desktop only.
+      // Six of these running at once is real cost on mobile hardware, and
+      // it's exactly the kind of per-scroll-frame recalculation that makes
+      // touch scrolling feel like it's fighting the page.
+      if (!prefersReducedMotion()) {
+        const mm = gsap.matchMedia();
+        mm.add("(min-width: 993px)", () => {
+          imageRefs.current.forEach((img) => {
+            if (img) parallaxImage(img, { distance: 36 });
+          });
+        });
+      }
     }, sectionRef);
 
     return () => ctx.revert();

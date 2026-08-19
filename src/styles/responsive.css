@@ -27,6 +27,19 @@ body.no-scroll {
   }
 }
 
+/*
+ * Mobile GPUs handle backdrop-filter blur far worse than desktop, and this
+ * page has many glass surfaces stacked down a long scroll. A lighter blur
+ * radius keeps the frosted look while cutting the per-layer compositing
+ * cost substantially. (The fixed navbar goes further and drops blur
+ * entirely on mobile — see Navbar.css — since it's mid-scroll continuously.)
+ */
+@media (max-width: 768px) {
+  :root {
+    --glass-blur: 10px;
+  }
+}
+
 @media (max-width: 576px) {
   :root {
     --container-width: 90vw;

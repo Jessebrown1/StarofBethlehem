@@ -1,4 +1,7 @@
-@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@300;400;500;600;700&display=swap");
+/* Fonts are loaded via <link> in index.html, not @import here — @import
+   is render-blocking and only discoverable after this file itself has
+   been fetched/parsed, delaying font load and risking a layout shift
+   right as the page settles (and a scroll gesture might land). */
 @import "./variables.css";
 
 * {
@@ -172,6 +175,12 @@ p {
   overflow: hidden;
   transition: transform var(--transition-base), box-shadow var(--transition-base),
     background var(--transition-base), color var(--transition-base), scale var(--transition-base);
+}
+
+/* Promote to a GPU layer only while actually interacting, not permanently
+   for every button on the page (that would waste GPU memory at rest). */
+.btn:hover,
+.btn:focus-visible {
   will-change: transform;
 }
 

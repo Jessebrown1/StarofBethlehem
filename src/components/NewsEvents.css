@@ -72,6 +72,11 @@
   font-size: 0.82rem;
   font-weight: 600;
   color: var(--text-accent);
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-family: inherit;
 }
 
 .news-card-link span {
@@ -80,6 +85,90 @@
 
 .news-card:hover .news-card-link span {
   transform: translateX(5px);
+}
+
+/* ---------- Article detail ---------- */
+
+.news-article-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(11, 20, 16, 0.6);
+  backdrop-filter: blur(4px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+  overflow-y: auto;
+}
+
+.news-article {
+  position: relative;
+  background: rgba(255, 255, 255, 0.96);
+  width: min(680px, 100%);
+  max-height: min(88vh, 900px);
+  overflow-y: auto;
+  scrollbar-width: none;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-soft);
+}
+
+.news-article::-webkit-scrollbar {
+  display: none;
+}
+
+:root[data-theme="dark"] .news-article {
+  background: rgba(20, 31, 25, 0.96);
+}
+
+.news-article-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 1;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  line-height: 1;
+  color: #ffffff;
+  background: rgba(11, 20, 16, 0.35);
+  backdrop-filter: blur(8px);
+  transition: background var(--transition-base), transform var(--transition-base);
+}
+
+.news-article-close:hover {
+  background: rgba(11, 20, 16, 0.55);
+  transform: rotate(90deg);
+}
+
+.news-article-image {
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+}
+
+.news-article-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.news-article-body {
+  padding: 1.8rem 2rem 2.2rem;
+}
+
+.news-article-body h2 {
+  font-size: clamp(1.4rem, 2.4vw, 1.9rem);
+  margin: 0.5rem 0 1rem;
+}
+
+.news-article-body p {
+  font-size: 0.98rem;
+  line-height: 1.7;
 }
 
 @media (max-width: 992px) {

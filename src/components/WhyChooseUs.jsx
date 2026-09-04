@@ -46,6 +46,10 @@ export default function WhyChooseUs() {
             pin: pinRef.current,
             pinSpacing: false,
             scrub: true,
+            // See horizontalScroll.js for why this matters: without it, a
+            // fast scroll into this section can jump/snap instead of
+            // pinning smoothly.
+            anticipatePin: 1,
             onUpdate: (self) => {
               const idx = Math.min(BENEFITS.length - 1, Math.floor(self.progress * BENEFITS.length));
               setActive(idx);

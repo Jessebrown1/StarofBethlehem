@@ -86,8 +86,15 @@
 
 /* ---------- Desktop pinned experience ---------- */
 @media (min-width: 993px) {
+  /* Scroll distance while pinned, for 4 benefit highlights to cycle
+     through (see the onUpdate progress math in WhyChooseUs.jsx — it's
+     resolution-independent, so this can be tuned freely). Was 400vh,
+     which meant scrolling 4 full screens of physical distance for a
+     panel that visually never moves — noticeably more hand movement
+     than page movement. 200vh keeps the pinned feel without that much
+     dead scroll. */
   .why-section {
-    height: 400vh;
+    height: 200vh;
   }
 
   .why-mobile {

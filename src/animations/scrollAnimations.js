@@ -1,13 +1,29 @@
 import { gsap, ScrollTrigger, prefersReducedMotion } from "./gsapSetup";
 
 /**
+ * A "once" scroll-triggered reveal starts hidden (opacity: 0, offset) and
+ * only becomes visible once GSAP's ticker interpolates it to completion. On
+ * a stalled tab (heavily throttled/backgrounded, a very low-power device)
+ * that interpolation can stop partway, leaving real content permanently
+ * invisible instead of just delayed. Once the reveal has actually started
+ * (onEnter fired), this forces it to its end state after a grace period if
+ * it hasn't finished on its own — a safety net, not the primary path.
+ */
+function guardAgainstStall(tween, ms = 2200) {
+  const id = setTimeout(() => {
+    if (tween.progress() < 1) tween.progress(1);
+  }, ms);
+  tween.eventCallback("onComplete", () => clearTimeout(id));
+}
+
+/**
  * Fade + translateY reveal for a single element as it enters the viewport.
  */
 export function revealUp(el, { trigger, y = 40, duration = 1, delay = 0, start = "top 80%" } = {}) {
   if (!el) return null;
   const reduced = prefersReducedMotion();
 
-  return gsap.from(el, {
+  const tween = gsap.from(el, {
     opacity: 0,
     y: reduced ? 0 : y,
     duration: reduced ? 0.4 : duration,
@@ -17,8 +33,10 @@ export function revealUp(el, { trigger, y = 40, duration = 1, delay = 0, start =
       trigger: trigger || el,
       start,
       once: true,
+      onEnter: () => guardAgainstStall(tween),
     },
   });
+  return tween;
 }
 
 /**
@@ -28,7 +46,7 @@ export function staggerReveal(elements, { trigger, y = 36, duration = 0.9, stagg
   if (!elements || !elements.length) return null;
   const reduced = prefersReducedMotion();
 
-  return gsap.from(elements, {
+  const tween = gsap.from(elements, {
     opacity: 0,
     y: reduced ? 0 : y,
     duration: reduced ? 0.4 : duration,
@@ -38,8 +56,10 @@ export function staggerReveal(elements, { trigger, y = 36, duration = 0.9, stagg
       trigger: trigger || elements[0],
       start,
       once: true,
+      onEnter: () => guardAgainstStall(tween),
     },
   });
+  return tween;
 }
 
 /**
@@ -50,7 +70,7 @@ export function revealLines(lines, { trigger, start = "top 85%", stagger = 0.14 
   if (!lines || !lines.length) return null;
   const reduced = prefersReducedMotion();
 
-  return gsap.from(lines, {
+  const tween = gsap.from(lines, {
     yPercent: reduced ? 0 : 110,
     opacity: reduced ? 0 : 1,
     duration: reduced ? 0.4 : 1,
@@ -60,8 +80,10 @@ export function revealLines(lines, { trigger, start = "top 85%", stagger = 0.14 
       trigger: trigger || lines[0],
       start,
       once: true,
+      onEnter: () => guardAgainstStall(tween),
     },
   });
+  return tween;
 }
 
 /**
@@ -79,6 +101,7 @@ export function revealImageClip(wrapper, img, { direction = "left", start = "top
       trigger: wrapper,
       start,
       once: true,
+      onEnter: () => guardAgainstStall(tl),
     },
   });
 

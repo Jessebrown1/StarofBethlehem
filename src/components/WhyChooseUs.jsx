@@ -1,5 +1,5 @@
 import { useLayoutEffect, useRef, useState } from "react";
-import { gsap } from "../animations/gsapSetup";
+import { gsap, ScrollTrigger } from "../animations/gsapSetup";
 import { revealUp, staggerReveal } from "../animations/scrollAnimations";
 import { IMAGES } from "../data/images";
 import "./WhyChooseUs.css";
@@ -29,7 +29,6 @@ const BENEFITS = [
 
 export default function WhyChooseUs() {
   const sectionRef = useRef(null);
-  const pinRef = useRef(null);
   const mobileListRef = useRef(null);
   const [active, setActive] = useState(0);
 
@@ -38,26 +37,23 @@ export default function WhyChooseUs() {
       const mm = gsap.matchMedia();
 
       mm.add("(min-width: 993px)", () => {
-        const st = gsap.timeline({
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top top",
-            end: "bottom bottom",
-            pin: pinRef.current,
-            pinSpacing: false,
-            scrub: true,
-            // See horizontalScroll.js for why this matters: without it, a
-            // fast scroll into this section can jump/snap instead of
-            // pinning smoothly.
-            anticipatePin: 1,
-            onUpdate: (self) => {
-              const idx = Math.min(BENEFITS.length - 1, Math.floor(self.progress * BENEFITS.length));
-              setActive(idx);
-            },
+        // .why-pinned is CSS `position: sticky` (see WhyChooseUs.css) rather
+        // than a ScrollTrigger `pin` — sticky stays perfectly in place
+        // through native browser scrolling with no JS in the loop, so it
+        // can't desync from trackpad momentum the way a JS-toggled pin can
+        // on Safari. This ScrollTrigger only reads scroll progress through
+        // the section to drive which benefit is highlighted.
+        const st = ScrollTrigger.create({
+          trigger: sectionRef.current,
+          start: "top top",
+          end: "bottom bottom",
+          onUpdate: (self) => {
+            const idx = Math.min(BENEFITS.length - 1, Math.floor(self.progress * BENEFITS.length));
+            setActive((prev) => (prev === idx ? prev : idx));
           },
         });
 
-        return () => st.scrollTrigger?.kill();
+        return () => st.kill();
       });
 
       mm.add("(max-width: 992px)", () => {
@@ -74,7 +70,7 @@ export default function WhyChooseUs() {
 
   return (
     <section id="why-us" className="why-section" ref={sectionRef}>
-      <div className="why-pinned" ref={pinRef}>
+      <div className="why-pinned">
         <div className="why-image-col">
           <img src={IMAGES.whyChooseMain} alt="Students engaged in learning at Star of Bethlehem International School" />
           <div className="why-image-overlay" />

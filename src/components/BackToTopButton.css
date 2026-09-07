@@ -1,0 +1,82 @@
+.back-to-top-button {
+  position: fixed;
+  right: 1.4rem;
+  /* Stacked above the WhatsApp button (bottom: 1.4rem, 56px tall — see
+     WhatsAppButton.css) so the two never overlap on the rare stretch of
+     page where both are visible at once (WhatsApp only shows near
+     Contact, this shows after one viewport of scroll). */
+  bottom: calc(1.4rem + 56px + 0.8rem);
+  z-index: 850;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--green-primary);
+  /* Literal white: sits on the constant deep-green fill in both themes,
+     matching .btn-primary's convention. */
+  color: #ffffff;
+  box-shadow: var(--shadow-card);
+  /* Hidden until the visitor scrolls past the first viewport height —
+     opacity/scale for the pop-in, visibility so it isn't
+     keyboard/screen-reader reachable while hidden (same convention as
+     WhatsAppButton.css). */
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(12px) scale(0.85);
+  transition: opacity var(--transition-base), transform var(--transition-base),
+    visibility 0s linear var(--transition-base), box-shadow var(--transition-base), background var(--transition-base);
+}
+
+.back-to-top-button.is-visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) scale(1);
+  transition: opacity var(--transition-base), transform var(--transition-base), box-shadow var(--transition-base),
+    background var(--transition-base);
+}
+
+.back-to-top-icon {
+  display: flex;
+  transition: transform var(--transition-base);
+}
+
+.back-to-top-button svg {
+  width: 22px;
+  height: 22px;
+}
+
+.back-to-top-button:hover {
+  background: var(--green-secondary);
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: var(--shadow-soft);
+}
+
+/* A little "tip of the cap" on hover — separate element from the <svg>
+   itself, which GSAP animates directly on click (see BackToTopButton.jsx);
+   stacking a CSS transform on that same element would fight the inline
+   style GSAP writes there. */
+.back-to-top-button:hover .back-to-top-icon {
+  transform: rotate(-12deg);
+}
+
+/* Hidden while a modal/menu locks body scroll, same reasoning as the
+   WhatsApp button. */
+body.no-scroll .back-to-top-button {
+  display: none;
+}
+
+@media (max-width: 992px) {
+  .back-to-top-button {
+    width: 44px;
+    height: 44px;
+    /* WhatsApp button is bottom: 1rem, 50px tall on mobile. */
+    bottom: calc(1rem + 50px + 0.7rem);
+  }
+
+  .back-to-top-button svg {
+    width: 20px;
+    height: 20px;
+  }
+}

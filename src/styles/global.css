@@ -42,13 +42,24 @@ body {
   color: var(--text-dark);
   background: var(--off-white);
   line-height: 1.6;
-  overflow-x: hidden;
+  /* `overflow-x: hidden` paired with any overflow-y (even an explicit
+     "visible") forces the browser to compute overflow-y as "auto" per
+     spec — that's an unconditional axis-coupling rule for "hidden", not
+     just a default-fill-in. That silently turns body into its own
+     scroll container, which breaks `position: sticky` for every
+     descendant (their sticky reference frame becomes this box instead
+     of the real viewport). `clip` doesn't carry that legacy coupling,
+     so it clips horizontal overflow without the side effect. */
+  overflow-x: clip;
+  overflow-y: visible;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 #root {
-  overflow-x: hidden;
+  /* See the body rule above — same reasoning applies here. */
+  overflow-x: clip;
+  overflow-y: visible;
   width: 100%;
 }
 

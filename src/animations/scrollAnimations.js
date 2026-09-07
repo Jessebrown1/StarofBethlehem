@@ -8,12 +8,27 @@ import { gsap, ScrollTrigger, prefersReducedMotion } from "./gsapSetup";
  * invisible instead of just delayed. Once the reveal has actually started
  * (onEnter fired), this forces it to its end state after a grace period if
  * it hasn't finished on its own — a safety net, not the primary path.
+ *
+ * Deliberately doesn't use tween.progress(1) or clearProps: on a staggered
+ * tween that only got a partial, stalled render, both left the opacity
+ * resolved but the transform-driven y stuck at its "from" value — GSAP
+ * represents a staggered gsap.from() as one tween per target internally,
+ * and neither approach reliably reached all of them. Each caller instead
+ * passes a `resolve` callback that calls gsap.killTweensOf(...) (kills
+ * every tween currently touching its target elements, regardless of how
+ * they're internally organized) followed by gsap.set(...) with the exact
+ * known-correct final values.
+ *
+ * Also deliberately does NOT cancel itself via the tween's onComplete: on a
+ * heavily throttled tab, GSAP can mark a staggered tween "complete" in its
+ * own bookkeeping — firing onComplete — without every target's last frame
+ * actually having been rendered, which would cancel this safety net right
+ * when it's needed. Running unconditionally instead is harmless: forcing
+ * already-correct values a moment after a normal reveal finishes is a
+ * no-op, not a visible change.
  */
-function guardAgainstStall(tween, ms = 2200) {
-  const id = setTimeout(() => {
-    if (tween.progress() < 1) tween.progress(1);
-  }, ms);
-  tween.eventCallback("onComplete", () => clearTimeout(id));
+function guardAgainstStall(resolve, ms = 2200) {
+  setTimeout(resolve, ms);
 }
 
 /**
@@ -33,7 +48,11 @@ export function revealUp(el, { trigger, y = 40, duration = 1, delay = 0, start =
       trigger: trigger || el,
       start,
       once: true,
-      onEnter: () => guardAgainstStall(tween),
+      onEnter: () =>
+        guardAgainstStall(() => {
+          gsap.killTweensOf(el);
+          gsap.set(el, { opacity: 1, y: 0 });
+        }),
     },
   });
   return tween;
@@ -56,7 +75,11 @@ export function staggerReveal(elements, { trigger, y = 36, duration = 0.9, stagg
       trigger: trigger || elements[0],
       start,
       once: true,
-      onEnter: () => guardAgainstStall(tween),
+      onEnter: () =>
+        guardAgainstStall(() => {
+          gsap.killTweensOf(elements);
+          gsap.set(elements, { opacity: 1, y: 0 });
+        }),
     },
   });
   return tween;
@@ -80,7 +103,11 @@ export function revealLines(lines, { trigger, start = "top 85%", stagger = 0.14 
       trigger: trigger || lines[0],
       start,
       once: true,
-      onEnter: () => guardAgainstStall(tween),
+      onEnter: () =>
+        guardAgainstStall(() => {
+          gsap.killTweensOf(lines);
+          gsap.set(lines, { opacity: 1, yPercent: 0 });
+        }),
     },
   });
   return tween;
@@ -96,12 +123,22 @@ export function revealImageClip(wrapper, img, { direction = "left", start = "top
   const clipFrom =
     direction === "left" ? "inset(0 100% 0 0)" : direction === "right" ? "inset(0 0 0 100%)" : "inset(100% 0 0 0)";
 
+  const finalClip = { clipPath: "inset(0 0% 0 0)", webkitClipPath: "inset(0 0% 0 0)" };
+
   const tl = gsap.timeline({
     scrollTrigger: {
       trigger: wrapper,
       start,
       once: true,
-      onEnter: () => guardAgainstStall(tl),
+      onEnter: () =>
+        guardAgainstStall(() => {
+          gsap.killTweensOf(wrapper);
+          gsap.set(wrapper, reduced ? { opacity: 1 } : finalClip);
+          if (img) {
+            gsap.killTweensOf(img);
+            gsap.set(img, { scale: 1 });
+          }
+        }),
     },
   });
 
@@ -111,8 +148,7 @@ export function revealImageClip(wrapper, img, { direction = "left", start = "top
   }
 
   tl.fromTo(wrapper, { clipPath: clipFrom, webkitClipPath: clipFrom }, {
-    clipPath: "inset(0 0% 0 0)",
-    webkitClipPath: "inset(0 0% 0 0)",
+    ...finalClip,
     duration,
     ease: "expo.out",
   });

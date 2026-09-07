@@ -17,6 +17,7 @@ const ITEMS = [
 export default function StudentLife() {
   const wrapperRef = useRef(null);
   const desktopSectionRef = useRef(null);
+  const viewportRef = useRef(null);
   const trackRef = useRef(null);
   const mobileSectionRef = useRef(null);
 
@@ -25,7 +26,7 @@ export default function StudentLife() {
       const mm = gsap.matchMedia();
 
       mm.add("(min-width: 993px)", () => {
-        const st = createHorizontalScroll(desktopSectionRef.current, trackRef.current);
+        const st = createHorizontalScroll(desktopSectionRef.current, viewportRef.current, trackRef.current);
         return () => st?.kill();
       });
 
@@ -43,24 +44,26 @@ export default function StudentLife() {
   return (
     <section id="student-life" className="student-life-wrapper" ref={wrapperRef}>
       <div className="student-life-desktop" ref={desktopSectionRef}>
-        <div className="student-life-track" ref={trackRef}>
-          <div className="student-life-intro">
-            <span className="eyebrow">Student Life</span>
-            <h2 className="section-heading">
-              Beyond the <span className="accent">Classroom</span>
-            </h2>
-            <p className="section-lede">A well-rounded school experience shaped by sport, culture, and leadership.</p>
-          </div>
+        <div className="student-life-viewport" ref={viewportRef}>
+          <div className="student-life-track" ref={trackRef}>
+            <div className="student-life-intro">
+              <span className="eyebrow">Student Life</span>
+              <h2 className="section-heading">
+                Beyond the <span className="accent">Classroom</span>
+              </h2>
+              <p className="section-lede">A well-rounded school experience shaped by sport, culture, and leadership.</p>
+            </div>
 
-          {ITEMS.map((item) => (
-            <article className="student-life-card" key={item.title}>
-              <div className="student-life-card-image">
-                <img src={item.image} alt={`${item.title} at Star of Bethlehem International School`} loading="lazy" />
-              </div>
-              <h3>{item.title}</h3>
-              <p>{item.description}</p>
-            </article>
-          ))}
+            {ITEMS.map((item) => (
+              <article className="student-life-card" key={item.title}>
+                <div className="student-life-card-image">
+                  <img src={item.image} alt={`${item.title} at Star of Bethlehem International School`} loading="lazy" />
+                </div>
+                <h3>{item.title}</h3>
+                <p>{item.description}</p>
+              </article>
+            ))}
+          </div>
         </div>
       </div>
 

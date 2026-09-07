@@ -67,6 +67,15 @@
 
   .student-life-desktop {
     display: block;
+    /* Height is set in JS (see horizontalScroll.js) — 100vh plus however
+       far the track needs to travel horizontally, so the sticky viewport
+       below has enough native scroll room to stay pinned through. */
+    position: relative;
+  }
+
+  .student-life-viewport {
+    position: sticky;
+    top: 0;
     height: 100vh;
     overflow: hidden;
   }

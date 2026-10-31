@@ -61,10 +61,12 @@ export default function ApplicationModal({ isOpen, onClose }) {
   const [values, setValues] = useState(initialFormState);
   const [errors, setErrors] = useState({});
   const [status, setStatus] = useState("idle"); // idle | submitting | success | error
+  const [submitted, setSubmitted] = useState({ studentName: "", classApplyingFor: "" });
 
   const overlayRef = useRef(null);
   const modalRef = useRef(null);
   const firstFieldRef = useRef(null);
+  const successRef = useRef(null);
 
   useLayoutEffect(() => {
     if (!isOpen) return undefined;
@@ -128,6 +130,38 @@ export default function ApplicationModal({ isOpen, onClose }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen]);
 
+  useLayoutEffect(() => {
+    if (status !== "success" || !successRef.current) return undefined;
+
+    const root = successRef.current;
+    if (prefersReducedMotion()) return undefined;
+
+    const ctx = gsap.context(() => {
+      const ring = root.querySelector(".success-ring");
+      const check = root.querySelector(".success-check");
+      const ringLen = ring.getTotalLength();
+      const checkLen = check.getTotalLength();
+
+      gsap.set(ring, { strokeDasharray: ringLen, strokeDashoffset: ringLen });
+      gsap.set(check, { strokeDasharray: checkLen, strokeDashoffset: checkLen });
+      gsap.set(root.querySelectorAll("[data-reveal]"), { opacity: 0, y: 14 });
+
+      gsap
+        .timeline({ defaults: { ease: "power3.out" } })
+        .to(ring, { strokeDashoffset: 0, duration: 0.7 })
+        .to(check, { strokeDashoffset: 0, duration: 0.4, ease: "power2.out" }, "-=0.1")
+        .fromTo(
+          root.querySelector(".success-badge"),
+          { scale: 0.9 },
+          { scale: 1, duration: 0.6, ease: "elastic.out(1, 0.5)" },
+          "-=0.35"
+        )
+        .to(root.querySelectorAll("[data-reveal]"), { opacity: 1, y: 0, duration: 0.5, stagger: 0.12 }, "-=0.4");
+    }, root);
+
+    return () => ctx.revert();
+  }, [status]);
+
   function closeAnimated() {
     const reduced = prefersReducedMotion();
     if (reduced || !modalRef.current || !overlayRef.current) {
@@ -179,6 +213,10 @@ export default function ApplicationModal({ isOpen, onClose }) {
           body: JSON.stringify(values),
         });
       }
+      setSubmitted({
+        studentName: values.studentName.trim(),
+        classApplyingFor: values.classApplyingFor,
+      });
       setStatus("success");
       setValues(initialFormState);
     } catch {
@@ -210,14 +248,52 @@ export default function ApplicationModal({ isOpen, onClose }) {
         </button>
 
         {status === "success" ? (
-          <div className="app-modal-success" role="status">
-            <span className="app-modal-success-icon" aria-hidden="true">
-              ✓
+          <div className="app-modal-success" role="status" ref={successRef}>
+            <div className="success-badge" aria-hidden="true">
+              <svg viewBox="0 0 80 80" fill="none">
+                <circle className="success-ring" cx="40" cy="40" r="36" strokeWidth="3" strokeLinecap="round" />
+                <path className="success-check" d="M25 41.5 35.5 52 56 29" strokeWidth="4.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </div>
+
+            <span className="eyebrow" data-reveal>
+              Application received
             </span>
-            <h2>Thank You</h2>
-            <p>Application submitted successfully. We will contact you shortly.</p>
-            <button type="button" className="btn btn-primary" onClick={closeAnimated}>
-              Close
+            <h2 data-reveal>
+              Thank you{submitted.studentName ? `, ${submitted.studentName.split(" ")[0]}'s family` : ""}!
+            </h2>
+            <p className="success-lead" data-reveal>
+              We&rsquo;ve received your application
+              {submitted.classApplyingFor ? ` for ${submitted.classApplyingFor}` : ""} and our admissions team is
+              already on it.
+            </p>
+
+            <ol className="success-steps" data-reveal>
+              <li>
+                <span className="success-step-num">1</span>
+                <div>
+                  <strong>We review your application</strong>
+                  <span>Our admissions office reads every application personally.</span>
+                </div>
+              </li>
+              <li>
+                <span className="success-step-num">2</span>
+                <div>
+                  <strong>We contact you</strong>
+                  <span>Expect a call or email within 2 working days to arrange the next step.</span>
+                </div>
+              </li>
+              <li>
+                <span className="success-step-num">3</span>
+                <div>
+                  <strong>Visit &amp; assessment</strong>
+                  <span>Meet the teachers, tour the campus and complete a friendly entrance assessment.</span>
+                </div>
+              </li>
+            </ol>
+
+            <button type="button" className="btn btn-primary" onClick={closeAnimated} data-reveal>
+              Back to the website
             </button>
           </div>
         ) : (

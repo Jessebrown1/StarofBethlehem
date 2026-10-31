@@ -5,7 +5,8 @@ import "./ApplicationModal.css";
 // Paste the deployed Google Apps Script Web App URL here once the Google
 // Sheet backend is set up — see GOOGLE_SHEETS_SETUP.md at the project root
 // for the full step-by-step guide (create sheet, deploy script, get URL).
-const GOOGLE_APPS_SCRIPT_URL = "YOUR_GOOGLE_APPS_SCRIPT_URL";
+const GOOGLE_APPS_SCRIPT_URL =
+  "https://script.google.com/macros/s/AKfycbxF-6L-MU6bHzIwMj955-hg3S6Sa4zdo_uMHOFuWyUhFG0jVk0RJQiwbuQzJzDR9fQj9w/exec";
 
 const initialFormState = {
   studentName: "",

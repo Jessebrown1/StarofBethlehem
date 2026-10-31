@@ -33,12 +33,14 @@ const COLUMNS = [
   "Message / Notes",
 ];
 
+const PHONE_COLUMN = COLUMNS.indexOf("Phone") + 1;
+
 function doPost(e) {
   try {
     const data = JSON.parse(e.postData.contents);
     const sheet = getOrCreateSheet();
 
-    sheet.appendRow([
+    const row = [
       new Date(),
       data.studentName || "",
       data.dateOfBirth || "",
@@ -50,7 +52,14 @@ function doPost(e) {
       data.guardianEmail || "",
       data.guardianAddress || "",
       data.message || "",
-    ]);
+    ];
+
+    // appendRow() lets Sheets parse "0240000000" as a number and drop the
+    // leading 0 (and the "+" of "+233..."), so write the row explicitly with
+    // the phone cell pre-formatted as plain text.
+    const rowNumber = sheet.getLastRow() + 1;
+    sheet.getRange(rowNumber, PHONE_COLUMN).setNumberFormat("@");
+    sheet.getRange(rowNumber, 1, 1, row.length).setValues([row]);
 
     return ContentService.createTextOutput(
       JSON.stringify({ result: "success" })

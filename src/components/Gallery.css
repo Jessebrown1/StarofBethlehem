@@ -1,80 +1,175 @@
 .gallery-section {
-  background: var(--off-white);
+  --album-paper: #f4ecdc;
+  --album-line: rgba(120, 95, 60, 0.12);
+  --album-print: #fffdf8;
+  --album-ink: #5a4a36;
+  --album-tape: rgba(232, 205, 120, 0.82);
+  position: relative;
+  overflow: hidden;
+  background-color: var(--album-paper);
+  /* Faint ruled-page lines, like an album page. */
+  background-image: repeating-linear-gradient(0deg, transparent 0 39px, var(--album-line) 39px 40px);
+}
+
+:root[data-theme="dark"] .gallery-section {
+  --album-paper: #17140f;
+  --album-line: rgba(255, 240, 210, 0.05);
+  --album-print: #efe7d6;
+  --album-ink: #5a4a36;
+  --album-tape: rgba(214, 186, 100, 0.75);
 }
 
 .gallery-header {
   max-width: 620px;
-  margin-bottom: 3rem;
+  margin-bottom: 4rem;
 }
 
 .gallery-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 1.4rem;
+  gap: 2.8rem 2rem;
+  align-items: start;
 }
 
 .gallery-item {
-  position: relative;
   display: block;
   width: 100%;
-  aspect-ratio: 4 / 3;
-  border-radius: var(--radius-md);
-  overflow: hidden;
-  box-shadow: var(--shadow-card);
+  padding: 0;
+  background: none;
+  border: 0;
   cursor: pointer;
-  text-align: left;
+  text-align: center;
 }
 
-.gallery-item img {
-  position: absolute;
-  inset: 0;
+/* The print itself: white border like an instant photo, tilted a little
+   differently each time. Rotation lives here (not on .gallery-item) so
+   the scroll-reveal's transform doesn't fight it. */
+.gallery-print {
+  position: relative;
+  display: block;
+  padding: 0.7rem 0.7rem 0.4rem;
+  background: var(--album-print);
+  border-radius: 3px;
+  box-shadow: 0 2px 4px rgba(60, 40, 10, 0.18), 0 14px 28px rgba(60, 40, 10, 0.16);
+  transform: rotate(var(--tilt, -2deg));
+  transition: transform 0.5s var(--ease-premium), box-shadow 0.5s var(--ease-premium);
+}
+
+.gallery-item:nth-child(8n + 1) .gallery-print { --tilt: -2.5deg; }
+.gallery-item:nth-child(8n + 2) .gallery-print { --tilt: 1.8deg; }
+.gallery-item:nth-child(8n + 3) .gallery-print { --tilt: -1deg; }
+.gallery-item:nth-child(8n + 4) .gallery-print { --tilt: 2.6deg; }
+.gallery-item:nth-child(8n + 5) .gallery-print { --tilt: 2deg; }
+.gallery-item:nth-child(8n + 6) .gallery-print { --tilt: -2.2deg; }
+.gallery-item:nth-child(8n + 7) .gallery-print { --tilt: 1.2deg; }
+.gallery-item:nth-child(8n + 8) .gallery-print { --tilt: -1.8deg; }
+
+/* Staggered drops so the rows don't line up like a table. */
+.gallery-item:nth-child(4n + 2) { margin-top: 1.6rem; }
+.gallery-item:nth-child(4n + 4) { margin-top: 0.8rem; }
+
+.gallery-item:hover .gallery-print,
+.gallery-item:focus-visible .gallery-print {
+  transform: rotate(0deg) scale(1.05);
+  box-shadow: 0 4px 8px rgba(60, 40, 10, 0.2), 0 26px 44px rgba(60, 40, 10, 0.26);
+  z-index: 3;
+}
+
+.gallery-item:focus-visible {
+  outline: none;
+}
+
+.gallery-item:focus-visible .gallery-print {
+  outline: 2px solid var(--green-secondary);
+  outline-offset: 4px;
+}
+
+.gallery-photo {
+  display: block;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: #d9d2c2;
+}
+
+.gallery-item:nth-child(3n + 2) .gallery-photo {
+  aspect-ratio: 1 / 1;
+}
+
+.gallery-item:nth-child(5n + 4) .gallery-photo {
+  aspect-ratio: 4 / 5;
+}
+
+.gallery-photo img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.6s var(--ease-premium);
+  filter: saturate(0.95) contrast(1.02);
 }
 
-.gallery-item:hover img,
-.gallery-item:focus-visible img {
-  transform: scale(1.06);
-}
-
-.gallery-item::after {
-  content: "";
+/* Strip of tape holding the print to the page. */
+.gallery-tape {
   position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, rgba(11, 61, 46, 0) 50%, rgba(11, 31, 24, 0.72) 100%);
-  z-index: 1;
-}
-
-.gallery-item-caption {
-  position: absolute;
-  left: 1rem;
-  bottom: 0.9rem;
+  top: -0.7rem;
+  left: 50%;
+  width: 4.2rem;
+  height: 1.4rem;
+  background: var(--album-tape);
+  transform: translateX(-50%) rotate(-4deg);
+  box-shadow: 0 1px 3px rgba(60, 40, 10, 0.15);
   z-index: 2;
-  /* Literal white: always sits on a dark gradient over a photo,
-     regardless of site theme — must not invert with --white. */
-  color: #ffffff;
+  /* Torn edges. */
+  clip-path: polygon(0 8%, 6% 0, 12% 10%, 18% 0, 82% 0, 88% 10%, 94% 0, 100% 8%, 100% 92%, 94% 100%, 88% 90%, 82% 100%, 18% 100%, 12% 90%, 6% 100%, 0 92%);
+}
+
+.gallery-item:nth-child(even) .gallery-tape {
+  transform: translateX(-50%) rotate(3deg);
+  width: 3.6rem;
+}
+
+.gallery-note {
+  display: block;
+  padding: 0.55rem 0 0.35rem;
   font-family: var(--font-display);
-  font-size: 0.88rem;
-  letter-spacing: 0.01em;
-  padding: 0.4rem 0.85rem;
-  border-radius: var(--radius-pill);
-  background: rgba(255, 255, 255, 0.14);
-  backdrop-filter: blur(12px) saturate(160%);
-  -webkit-backdrop-filter: blur(12px) saturate(160%);
-  border: 1px solid rgba(255, 255, 255, 0.28);
+  font-style: italic;
+  font-size: 0.95rem;
+  /* Literal dark ink: the print border is cream in both themes. */
+  color: #5a4a36;
 }
 
 @media (max-width: 992px) {
   .gallery-grid {
     grid-template-columns: repeat(2, 1fr);
+    gap: 2.4rem 1.4rem;
+  }
+
+  .gallery-item:nth-child(4n + 2),
+  .gallery-item:nth-child(4n + 4) {
+    margin-top: 0;
+  }
+
+  .gallery-item:nth-child(even) {
+    margin-top: 1.4rem;
   }
 }
 
 @media (max-width: 480px) {
   .gallery-grid {
-    grid-template-columns: 1fr;
+    gap: 2rem 1rem;
+  }
+
+  .gallery-print {
+    padding: 0.5rem 0.5rem 0.2rem;
+  }
+
+  .gallery-note {
+    font-size: 0.82rem;
+    padding-top: 0.4rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gallery-print {
+    transition: none;
   }
 }
 

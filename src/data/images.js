@@ -3,12 +3,7 @@
  * (src/assets/images/), supplied by the school. There are more image slots
  * across the site than distinct source photos, so some photos are reused
  * across thematically related sections (e.g. the sports day photo covers
- * Student Life > Sports, Facilities > Sports, and News > Sports).
- *
- * Testimonial avatars are the one exception, kept as generic stock photos:
- * the testimonials are placeholder copy, not real named parents, so using
- * a real student's photo next to a fabricated quote would misrepresent
- * that specific child.
+ * Student Life > Sports and News > Sports).
  */
 
 import heroStudents from "../assets/images/hero-students.jpeg";
@@ -19,47 +14,44 @@ import museumTrip from "../assets/images/museum-trip.jpeg";
 import potteryCraft from "../assets/images/pottery-craft.jpeg";
 import graduation2025 from "../assets/images/graduation-2025.jpeg";
 import competitionTrophy from "../assets/images/competition-trophy.jpeg";
-
-const unsplash = (id, w = 1600) =>
-  `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${w}&q=80`;
+import edu from "../assets/images/edu.jpg";
+import education from "../assets/images/education.jpeg"
+import early from "../assets/images/early.jpg"
+import prim from "../assets/images/prim.jpg"
+import jhs from "../assets/images/jhs.jpg"
+import safe from "../assets/images/safe.jpg"
+import sport from "../assets/images/sport.jpg"
+import lead from "../assets/images/lead.jpg"
+import comp from "../assets/images/comp.jpg"
+import grad from "../assets/images/grad.jpg"
 
 export const IMAGES = {
   heroStudents,
 
-  aboutClassroom: classroomCelebration,
-  aboutCampus: campusAdminBlock,
+
+  aboutCampus: education,
+  aboutClassroom: edu,
 
   whyChooseMain: sportsDay,
 
-  academicEarlyYears: classroomCelebration,
-  academicPrimary: campusAdminBlock,
-  academicJHS: potteryCraft,
+  academicEarlyYears: early,
+  academicPrimary: prim,
+  academicJHS: jhs,
 
-  facilityClassrooms: classroomCelebration,
-  facilityScienceLab: classroomCelebration,
-  facilityICTLab: campusAdminBlock,
-  facilityLibrary: museumTrip,
-  facilitySports: sportsDay,
-  facilityAuditorium: graduation2025,
+
+  safetyCare: safe,
 
   admissionsBg: campusAdminBlock,
+  admissionsPhoto: graduation2025,
 
-  studentLifeSports: sportsDay,
+  studentLifeSports: sport,
   studentLifeClubs: potteryCraft,
-  studentLifeLeadership: competitionTrophy,
-  studentLifeCulture: graduation2025,
+  studentLifeLeadership: lead,
+  studentLifeCulture: grad,
   studentLifeTrips: museumTrip,
-  studentLifeCompetitions: competitionTrophy,
+  studentLifeCompetitions: comp,
 
-  newsScienceFair: classroomCelebration,
-  newsSports: sportsDay,
-  newsLibrary: museumTrip,
 
-  // Testimonials are placeholder copy (not real named parents) — kept as
-  // generic stock photos rather than a real student's photo.
-  testimonial1: unsplash("photo-1544005313-94ddf0286df2", 300),
-  testimonial2: unsplash("photo-1500648767791-00dcc994a43e", 300),
-  testimonial3: unsplash("photo-1580489944761-15a19d654956", 300),
 
   finalCTA: graduation2025,
 };

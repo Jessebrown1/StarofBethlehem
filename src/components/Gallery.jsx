@@ -9,17 +9,20 @@ import museumTrip from "../assets/images/museum-trip.jpeg";
 import potteryCraft from "../assets/images/pottery-craft.jpeg";
 import graduation2025 from "../assets/images/graduation-2025.jpeg";
 import competitionTrophy from "../assets/images/competition-trophy.jpeg";
+import sport from "../assets/images/sport.jpg";
+import grad26 from "../assets/images/grad26.jpg";
+import trip from "../assets/images/trip.jpg";
 import "./Gallery.css";
 
 const PHOTOS = [
-  { image: heroStudents, caption: "Students on Campus" },
-  { image: campusAdminBlock, caption: "Campus Admin Block" },
-  { image: classroomCelebration, caption: "Classroom Celebrations" },
-  { image: sportsDay, caption: "Sports Day" },
-  { image: museumTrip, caption: "Museum Field Trip" },
-  { image: potteryCraft, caption: "Pottery & Craft" },
-  { image: graduation2025, caption: "Graduation 2025" },
-  { image: competitionTrophy, caption: "Competition Winners" },
+  { image: heroStudents, caption: "Campus life" },
+  { image: campusAdminBlock, caption: "Our campus" },
+  { image: sport, caption: "Celebrations" },
+  { image: sportsDay, caption: "Sports day" },
+  { image: trip, caption: "Field trip" },
+  { image: potteryCraft, caption: "Crafts" },
+  { image: grad26, caption: "Graduation '26" },
+  { image: competitionTrophy, caption: "Champions" },
 ];
 
 export default function Gallery() {
@@ -123,13 +126,10 @@ export default function Gallery() {
     <section id="gallery" className="gallery-section section" ref={sectionRef}>
       <div className="container">
         <div className="gallery-header" ref={headingRef}>
-          <span className="eyebrow">Gallery</span>
+          <span className="eyebrow">School Album</span>
           <h2 className="section-heading">
             Moments Worth <span className="accent">Remembering</span>
           </h2>
-          <p className="section-lede">
-            A glimpse into everyday life at Star of Bethlehem — the classroom, the campus, and the community.
-          </p>
         </div>
 
         <div className="gallery-grid" ref={gridRef}>
@@ -141,8 +141,13 @@ export default function Gallery() {
               onClick={(e) => open(i, e)}
               aria-label={`View larger image: ${photo.caption}`}
             >
-              <img src={photo.image} alt={`${photo.caption} at Star of Bethlehem International School`} loading="lazy" />
-              <span className="gallery-item-caption">{photo.caption}</span>
+              <span className="gallery-print">
+                <span className="gallery-tape" aria-hidden="true" />
+                <span className="gallery-photo">
+                  <img src={photo.image} alt={`${photo.caption} at Star of Bethlehem International School`} loading="lazy" />
+                </span>
+                <span className="gallery-note">{photo.caption}</span>
+              </span>
             </button>
           ))}
         </div>

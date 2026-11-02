@@ -3,36 +3,38 @@ import { gsap } from "../animations/gsapSetup";
 import { revealUp, staggerReveal } from "../animations/scrollAnimations";
 import "./FAQSection.css";
 
+// Placeholder answers — confirm ages, bus routes, uniform rules and the
+// admissions steps with the school before launch.
 const FAQS = [
   {
-    question: "What ages do you accept for admission?",
+    question: "What ages do you take?",
     answer:
-      "We welcome students from Creche/Nursery through JHS 3, with rolling admissions available at every level as space allows.",
+      "From Creche right up to JHS 3. If there is space in the class, we can usually welcome your child at any point in the year, not just at the start of term.",
   },
   {
-    question: "What is the admissions process?",
+    question: "How does admission work?",
     answer:
-      "Families submit an application, the student completes an entrance assessment where applicable, and our admissions team schedules a follow-up meeting before an offer is made.",
+      "You send in the application form, your child sits a short, friendly assessment where needed, and then we invite you in for a chat. If it feels right for both sides, we make an offer.",
   },
   {
-    question: "Do you provide transportation for students?",
+    question: "Is there a school bus?",
     answer:
-      "Yes, we offer school bus services covering several routes across the city. Contact our admissions office to check availability for your area.",
+      "Yes, we run bus routes across the city. Tell us roughly where you live and the office will let you know if we pass near you.",
   },
   {
-    question: "Is a school uniform required?",
+    question: "Do the children wear uniform?",
     answer:
-      "Yes, all students are required to wear the official Star of Bethlehem uniform, available through our approved suppliers.",
+      "They do. It keeps things simple and fair for everyone. We will tell you exactly where to buy the Star of Bethlehem uniform once your child is offered a place.",
   },
   {
-    question: "What extracurricular activities do you offer?",
+    question: "What is there to do besides lessons?",
     answer:
-      "Students can join sports teams, debate and science clubs, cultural groups, and leadership programs including the student council.",
+      "Plenty: football and other sports, science and debate clubs, cultural groups, and leadership roles like the student council. Most children find something they love.",
   },
   {
-    question: "How can I schedule a campus tour?",
+    question: "Can I come and see the school first?",
     answer:
-      "Reach out through our Contact section or call our admissions office directly — we're happy to arrange a personal tour of the campus.",
+      "Please do. Message us or call the office and we will arrange a time to show you around, meet the teachers and answer anything on your mind.",
   },
 ];
 
@@ -57,12 +59,22 @@ export default function FAQSection() {
 
   return (
     <section id="faq" className="faq-section section" ref={sectionRef}>
-      <div className="container">
-        <div className="faq-header" ref={headingRef}>
+      <div className="container faq-layout">
+        <div className="faq-intro" ref={headingRef}>
+          <span className="faq-watermark" aria-hidden="true">
+            ?
+          </span>
           <span className="eyebrow">FAQ</span>
           <h2 className="section-heading">
-            Frequently Asked <span className="accent">Questions</span>
+            Good Questions, <span className="accent">Straight Answers</span>
           </h2>
+          <p>The things parents ask us most. Can&rsquo;t see yours? Just ask, we are happy to help.</p>
+          <a href="#contact" className="faq-help">
+            <span className="faq-help-title">Still wondering about something?</span>
+            <span className="faq-help-link">
+              Talk to our office <span aria-hidden="true">&rarr;</span>
+            </span>
+          </a>
         </div>
 
         <div className="faq-list">
@@ -84,10 +96,14 @@ export default function FAQSection() {
                     aria-controls={panelId}
                     onClick={() => toggle(i)}
                   >
-                    {faq.question}
-                    <span className="faq-chevron" aria-hidden="true">
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="m6 9 6 6 6-6" />
+                    <span className="faq-num" aria-hidden="true">
+                      0{i + 1}
+                    </span>
+                    <span className="faq-question-text">{faq.question}</span>
+                    <span className="faq-toggle" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
+                        <path d="M5 12h14" />
+                        <path className="faq-toggle-v" d="M12 5v14" />
                       </svg>
                     </span>
                   </button>

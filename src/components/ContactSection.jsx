@@ -62,18 +62,26 @@ const CONTACT_DETAILS = [
   },
 ];
 
+// Same placeholder number as WhatsAppButton.jsx — update both together.
+const WHATSAPP_URL = `https://wa.me/233240000000?text=${encodeURIComponent(
+  "Hello! I'd like to visit Star of Bethlehem International School."
+)}`;
+const DIRECTIONS_URL = "https://www.google.com/maps/search/?api=1&query=Accra,Ghana";
+
 export default function ContactSection() {
   const sectionRef = useRef(null);
   const headingRef = useRef(null);
   const mapWrapperRef = useRef(null);
   const mapImgRef = useRef(null);
+  const panelRef = useRef(null);
   const itemsRef = useRef([]);
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
       revealUp(headingRef.current, { trigger: sectionRef.current });
       revealImageClip(mapWrapperRef.current, mapImgRef.current, { direction: "left" });
-      staggerReveal(itemsRef.current, { trigger: sectionRef.current, y: 24 });
+      revealUp(panelRef.current, { trigger: sectionRef.current });
+      staggerReveal(itemsRef.current.filter(Boolean), { trigger: sectionRef.current, y: 18, stagger: 0.08 });
     }, sectionRef);
 
     return () => ctx.revert();
@@ -85,15 +93,15 @@ export default function ContactSection() {
         <div className="contact-header" ref={headingRef}>
           <span className="eyebrow">Get In Touch</span>
           <h2 className="section-heading">
-            Visit Our <span className="accent">Campus</span>
+            Come and See <span className="accent">Us</span>
           </h2>
           <p className="section-lede">
-            We&rsquo;d love to welcome you to Star of Bethlehem. Reach out with any questions or
-            stop by to see the campus for yourself.
+            The best way to know if a school is right for your child is to walk through its gates. Call, message or
+            simply drop by.
           </p>
         </div>
 
-        <div className="contact-grid">
+        <div className="contact-stage">
           <div className="contact-map" ref={mapWrapperRef}>
             <iframe
               ref={mapImgRef}
@@ -102,28 +110,43 @@ export default function ContactSection() {
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
             />
+            <a className="contact-directions" href={DIRECTIONS_URL} target="_blank" rel="noopener noreferrer">
+              Get directions <span aria-hidden="true">&rarr;</span>
+            </a>
           </div>
 
-          <div className="contact-details">
-            {CONTACT_DETAILS.map((item, i) => {
-              const Tag = item.href ? "a" : "div";
-              return (
-                <Tag
-                  key={item.label}
-                  className="contact-item"
-                  href={item.href}
-                  ref={(el) => (itemsRef.current[i] = el)}
-                >
-                  <span className="contact-item-icon" aria-hidden="true">
-                    {item.icon}
-                  </span>
-                  <span className="contact-item-body">
-                    <span className="contact-item-label">{item.label}</span>
-                    <span className="contact-item-value">{item.value}</span>
-                  </span>
-                </Tag>
-              );
-            })}
+          <div className="contact-panel" ref={panelRef}>
+            <span className="contact-panel-kicker">Contact</span>
+            <h3 className="contact-panel-title">Let&rsquo;s talk</h3>
+            <div className="contact-details">
+              {CONTACT_DETAILS.map((item, i) => {
+                const Tag = item.href ? "a" : "div";
+                return (
+                  <Tag
+                    key={item.label}
+                    className="contact-item"
+                    href={item.href}
+                    ref={(el) => (itemsRef.current[i] = el)}
+                  >
+                    <span className="contact-item-icon" aria-hidden="true">
+                      {item.icon}
+                    </span>
+                    <span className="contact-item-body">
+                      <span className="contact-item-label">{item.label}</span>
+                      <span className="contact-item-value">{item.value}</span>
+                    </span>
+                  </Tag>
+                );
+              })}
+            </div>
+            <div className="contact-actions">
+              <a className="contact-whatsapp" href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer">
+                WhatsApp us
+              </a>
+              <a className="contact-call" href="tel:+233000000000">
+                Call
+              </a>
+            </div>
           </div>
         </div>
       </div>

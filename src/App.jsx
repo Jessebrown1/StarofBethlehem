@@ -10,12 +10,12 @@ import AboutSection from "./components/AboutSection.jsx";
 import Stats from "./components/Stats.jsx";
 import AcademicPrograms from "./components/AcademicPrograms.jsx";
 import WhyChooseUs from "./components/WhyChooseUs.jsx";
-import Facilities from "./components/Facilities.jsx";
+import SafetyCare from "./components/SafetyCare.jsx";
 import AdmissionsCTA from "./components/AdmissionsCTA.jsx";
 import AdmissionsTimeline from "./components/AdmissionsTimeline.jsx";
 import StudentLife from "./components/StudentLife.jsx";
 import Gallery from "./components/Gallery.jsx";
-import NewsEvents from "./components/NewsEvents.jsx";
+import ParentPartnership from "./components/ParentPartnership.jsx";
 import Testimonials from "./components/Testimonials.jsx";
 import FAQSection from "./components/FAQSection.jsx";
 import ContactSection from "./components/ContactSection.jsx";
@@ -42,12 +42,12 @@ function App() {
           <Stats />
           <AcademicPrograms />
           <WhyChooseUs />
-          <Facilities />
+          <SafetyCare />
           <AdmissionsCTA />
           <AdmissionsTimeline />
           <StudentLife />
           <Gallery />
-          <NewsEvents />
+          <ParentPartnership />
           <Testimonials />
           <FAQSection />
           <ContactSection />

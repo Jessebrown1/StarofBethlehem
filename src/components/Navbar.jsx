@@ -7,7 +7,7 @@ import schoolLogo from "../assets/images/school-logo-crest.jpeg";
 import "./Navbar.css";
 
 // Kept deliberately short — the mobile menu and footer carry the full
-// sitemap (Home, News & Events, FAQ included), so the desktop bar only
+// sitemap (Home, Parents, FAQ included), so the desktop bar only
 // needs the handful of links a visitor actually reaches for.
 const LINKS = [
   { label: "About Us", href: "#about" },

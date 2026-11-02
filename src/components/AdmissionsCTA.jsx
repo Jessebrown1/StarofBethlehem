@@ -13,15 +13,16 @@ export default function AdmissionsCTA() {
   const headingRef = useRef(null);
   const textRef = useRef(null);
   const benefitsRef = useRef([]);
-  const buttonRef = useRef(null);
+  const buttonsRef = useRef(null);
+  const visualRef = useRef(null);
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
-      revealUp(sectionRef.current, { trigger: sectionRef.current, y: 0, duration: 1, start: "top 75%" });
       revealUp(headingRef.current, { trigger: sectionRef.current, delay: 0.1 });
       revealUp(textRef.current, { trigger: sectionRef.current, delay: 0.25 });
       staggerReveal(benefitsRef.current, { trigger: sectionRef.current, y: 20 });
-      revealUp(buttonRef.current, { trigger: sectionRef.current, delay: 0.5 });
+      revealUp(buttonsRef.current, { trigger: sectionRef.current, delay: 0.5 });
+      revealUp(visualRef.current, { trigger: sectionRef.current, y: 60, delay: 0.2, duration: 1.2 });
     }, sectionRef);
 
     return () => ctx.revert();
@@ -32,27 +33,71 @@ export default function AdmissionsCTA() {
       <img className="admissions-bg" src={IMAGES.admissionsBg} alt="" aria-hidden="true" loading="lazy" />
       <div className="admissions-overlay" />
 
-      <div className="container admissions-content">
-        <span className="eyebrow eyebrow--light">Admissions Open</span>
-        <h2 className="section-heading" ref={headingRef}>
-          Begin Your Child&rsquo;s Journey to Excellence
-        </h2>
-        <p ref={textRef}>
-          Join a community dedicated to raising purposeful leaders. Our admissions team is ready
-          to guide your family through every step of the process.
-        </p>
+      <div className="container admissions-layout">
+        <div className="admissions-content">
+          <span className="admissions-pill">
+            <span className="admissions-pulse" aria-hidden="true" />
+            Admissions Open
+          </span>
+          <h2 className="section-heading" ref={headingRef}>
+            Begin Your Child&rsquo;s Journey to <span className="admissions-accent">Excellence</span>
+          </h2>
+          <p ref={textRef}>
+            Join a community dedicated to raising purposeful leaders. Our admissions team is ready
+            to guide your family through every step of the process.
+          </p>
 
-        <ul className="admissions-benefits">
-          {BENEFITS.map((benefit, i) => (
-            <li key={benefit} ref={(el) => (benefitsRef.current[i] = el)}>
-              {benefit}
-            </li>
-          ))}
-        </ul>
+          <ul className="admissions-benefits">
+            {BENEFITS.map((benefit, i) => (
+              <li key={benefit} ref={(el) => (benefitsRef.current[i] = el)}>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="m5 12.5 4.5 4.5L19 7.5" />
+                </svg>
+                {benefit}
+              </li>
+            ))}
+          </ul>
 
-        <button type="button" className="btn btn-light" ref={buttonRef} onClick={openModal}>
-          Apply Now
-        </button>
+          <div className="admissions-buttons" ref={buttonsRef}>
+            <button type="button" className="btn btn-light" onClick={openModal}>
+              Apply Now
+            </button>
+            <a href="#contact" className="admissions-link">
+              Have a question? Talk to us
+            </a>
+          </div>
+        </div>
+
+        <div className="admissions-visual" ref={visualRef}>
+          <div className="admissions-arch">
+            <img src={IMAGES.admissionsPhoto} alt="Proud graduates with their families and teachers" loading="lazy" />
+          </div>
+
+          <svg className="admissions-seal" viewBox="0 0 120 120" aria-hidden="true">
+            <defs>
+              <path id="admissions-seal-circle" d="M60 60m-44 0a44 44 0 1 1 88 0a44 44 0 1 1-88 0" />
+            </defs>
+            <circle cx="60" cy="60" r="58" className="admissions-seal-bg" />
+            <text className="admissions-seal-text">
+              <textPath href="#admissions-seal-circle">NOW ENROLLING • NOW ENROLLING • </textPath>
+            </text>
+            <g transform="translate(36 36) scale(2)" className="admissions-seal-cap">
+              <path d="M2.4 9.6 12 5l9.6 4.6-9.6 4.6-9.6-4.6Z" />
+              <path d="M6.4 11.6v4.2c0 1.5 2.5 3 5.6 3s5.6-1.5 5.6-3v-4.2" />
+              <path d="M21.6 9.6v6" />
+            </g>
+          </svg>
+
+          <a href="#contact" className="admissions-card">
+            <span>
+              <strong>Start with a simple online form</strong>
+              We&rsquo;ll guide you through the rest.
+            </span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M5 12h14M13 6l6 6-6 6" />
+            </svg>
+          </a>
+        </div>
       </div>
     </section>
   );

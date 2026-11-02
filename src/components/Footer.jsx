@@ -9,7 +9,7 @@ const QUICK_LINKS = [
   { label: "Admissions", href: "#admissions" },
   { label: "Student Life", href: "#student-life" },
   { label: "Gallery", href: "#gallery" },
-  { label: "News & Events", href: "#news" },
+  { label: "Parents", href: "#parents" },
   { label: "FAQ", href: "#faq" },
   { label: "Contact Us", href: "#contact" },
 ];

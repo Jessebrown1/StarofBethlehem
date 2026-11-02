@@ -9,7 +9,7 @@ const ITEMS = [
   { title: "Sports", description: "Football, athletics, and inter-house competitions build teamwork and grit.", image: IMAGES.studentLifeSports },
   { title: "Clubs", description: "Debate, science, and creative arts clubs let students pursue their passions.", image: IMAGES.studentLifeClubs },
   { title: "Leadership", description: "Student council and prefect programs cultivate confidence and responsibility.", image: IMAGES.studentLifeLeadership },
-  { title: "Culture", description: "Cultural days celebrate Ghana's rich heritage and our diverse community.", image: IMAGES.studentLifeCulture },
+  { title: "Graduation", description: "Cultural days celebrate Ghana's rich heritage and our diverse community.", image: IMAGES.studentLifeCulture },
   { title: "Trips", description: "Educational excursions bring classroom learning to life beyond campus.", image: IMAGES.studentLifeTrips },
   { title: "Competitions", description: "Inter-school academic and sporting competitions showcase student talent.", image: IMAGES.studentLifeCompetitions },
 ];

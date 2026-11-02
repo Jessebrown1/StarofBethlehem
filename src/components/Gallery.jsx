@@ -1,21 +1,21 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { gsap, prefersReducedMotion } from "../animations/gsapSetup";
 import { revealUp, staggerReveal } from "../animations/scrollAnimations";
-import heroStudents from "../assets/images/hero-students.jpeg";
-import campusAdminBlock from "../assets/images/campus-admin-block.jpeg";
-import classroomCelebration from "../assets/images/classroom-celebration.jpeg";
-import sportsDay from "../assets/images/sports-day.jpeg";
-import museumTrip from "../assets/images/museum-trip.jpeg";
-import potteryCraft from "../assets/images/pottery-craft.jpeg";
-import graduation2025 from "../assets/images/graduation-2025.jpeg";
-import competitionTrophy from "../assets/images/competition-trophy.jpeg";
-import sport from "../assets/images/sport.jpg";
-import grad26 from "../assets/images/grad26.jpg";
-import trip from "../assets/images/trip.jpg";
+import { IMAGES } from "../data/images";
+import campusAdminBlock from "../assets/images/campus-admin-block.webp";
+import classroomCelebration from "../assets/images/classroom-celebration.webp";
+import sportsDay from "../assets/images/sports-day.webp";
+import museumTrip from "../assets/images/museum-trip.webp";
+import potteryCraft from "../assets/images/pottery-craft.webp";
+import graduation2025 from "../assets/images/graduation-2025.webp";
+import competitionTrophy from "../assets/images/competition-trophy.webp";
+import sport from "../assets/images/sport.webp";
+import grad26 from "../assets/images/grad26.webp";
+import trip from "../assets/images/trip.webp";
 import "./Gallery.css";
 
 const PHOTOS = [
-  { image: heroStudents, caption: "Campus life" },
+  { image: IMAGES.heroStudents, caption: "Campus life" },
   { image: campusAdminBlock, caption: "Our campus" },
   { image: sport, caption: "Celebrations" },
   { image: sportsDay, caption: "Sports day" },
@@ -144,7 +144,7 @@ export default function Gallery() {
               <span className="gallery-print">
                 <span className="gallery-tape" aria-hidden="true" />
                 <span className="gallery-photo">
-                  <img src={photo.image} alt={`${photo.caption} at Star of Bethlehem International School`} loading="lazy" />
+                  <img src={photo.image} alt={`${photo.caption} at Star of Bethlehem International School`} loading="lazy" decoding="async" />
                 </span>
                 <span className="gallery-note">{photo.caption}</span>
               </span>

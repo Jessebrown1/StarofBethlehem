@@ -1,30 +1,42 @@
-import { useEffect } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import { ThemeProvider } from "./context/ThemeContext.jsx";
 import { ApplicationModalProvider } from "./context/ApplicationModalContext.jsx";
 import { initSmoothAnchorScroll } from "./animations/smoothAnchorScroll";
 import { initScrollTriggerRefresh } from "./animations/refreshScrollTrigger";
 import Navbar from "./components/Navbar.jsx";
 import Hero from "./components/Hero.jsx";
-import ValuesSection from "./components/ValuesSection.jsx";
-import AboutSection from "./components/AboutSection.jsx";
-import Stats from "./components/Stats.jsx";
-import AcademicPrograms from "./components/AcademicPrograms.jsx";
-import WhyChooseUs from "./components/WhyChooseUs.jsx";
-import SafetyCare from "./components/SafetyCare.jsx";
-import AdmissionsCTA from "./components/AdmissionsCTA.jsx";
-import AdmissionsTimeline from "./components/AdmissionsTimeline.jsx";
-import StudentLife from "./components/StudentLife.jsx";
-import Gallery from "./components/Gallery.jsx";
-import ParentPartnership from "./components/ParentPartnership.jsx";
-import Testimonials from "./components/Testimonials.jsx";
-import FAQSection from "./components/FAQSection.jsx";
-import ContactSection from "./components/ContactSection.jsx";
-import FinalCTA from "./components/FinalCTA.jsx";
+const BelowFold = lazy(() => import("./components/BelowFold.jsx"));
 import Footer from "./components/Footer.jsx";
 import WhatsAppButton from "./components/WhatsAppButton.jsx";
 import BackToTopButton from "./components/BackToTopButton.jsx";
 
 function App() {
+  // Hero first: the rest of the page mounts on the first scroll/tap/key or
+  // after a couple of seconds, so the hero image and fonts get the
+  // bandwidth and main thread while the visitor is looking at them. The
+  // chunk is fetched straight away so mounting is instant. A deep link
+  // (#contact) mounts everything immediately so the anchor exists.
+  const [ready, setReady] = useState(() => Boolean(window.location.hash));
+
+  useEffect(() => {
+    if (ready) return;
+    import("./components/BelowFold.jsx");
+
+    const events = ["scroll", "wheel", "touchstart", "pointerdown", "keydown"];
+    const timeoutId = setTimeout(mount, 2500);
+    function mount() {
+      clearTimeout(timeoutId);
+      events.forEach((e) => window.removeEventListener(e, mount));
+      setReady(true);
+    }
+    events.forEach((e) => window.addEventListener(e, mount, { passive: true, once: true }));
+
+    return () => {
+      clearTimeout(timeoutId);
+      events.forEach((e) => window.removeEventListener(e, mount));
+    };
+  }, [ready]);
+
   useEffect(() => initSmoothAnchorScroll(), []);
   useEffect(() => initScrollTriggerRefresh(), []);
 
@@ -37,23 +49,13 @@ function App() {
         <Navbar />
         <main id="main-content">
           <Hero />
-          <ValuesSection />
-          <AboutSection />
-          <Stats />
-          <AcademicPrograms />
-          <WhyChooseUs />
-          <SafetyCare />
-          <AdmissionsCTA />
-          <AdmissionsTimeline />
-          <StudentLife />
-          <Gallery />
-          <ParentPartnership />
-          <Testimonials />
-          <FAQSection />
-          <ContactSection />
-          <FinalCTA />
+          {ready && (
+            <Suspense fallback={<div style={{ minHeight: "100vh" }} aria-hidden="true" />}>
+              <BelowFold />
+            </Suspense>
+          )}
         </main>
-        <Footer />
+        {ready && <Footer />}
         <WhatsAppButton />
         <BackToTopButton />
       </ApplicationModalProvider>

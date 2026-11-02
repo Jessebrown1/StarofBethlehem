@@ -72,7 +72,7 @@ export default function AboutSection() {
               ref={imageRef}
               src={IMAGES.aboutClassroom}
               alt="Teacher guiding students in a modern classroom at Star of Bethlehem International School"
-              loading="lazy"
+              loading="lazy" decoding="async"
             />
           </div>
           <div className="about-image-secondary" ref={secondaryWrapperRef}>
@@ -80,7 +80,7 @@ export default function AboutSection() {
               ref={secondaryImageRef}
               src={IMAGES.aboutCampus}
               alt="Green landscaped campus grounds of Star of Bethlehem International School"
-              loading="lazy"
+              loading="lazy" decoding="async"
             />
           </div>
         </div>

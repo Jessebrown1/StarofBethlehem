@@ -3,7 +3,7 @@ import { gsap, ScrollTrigger, prefersReducedMotion } from "../animations/gsapSet
 import { useApplicationModal } from "../context/ApplicationModalContext.jsx";
 import MobileMenu from "./MobileMenu.jsx";
 import ThemeToggle from "./ThemeToggle.jsx";
-import schoolLogo from "../assets/images/school-logo-crest.jpeg";
+import schoolLogo from "../assets/images/school-logo-crest.webp";
 import "./Navbar.css";
 
 // Kept deliberately short — the mobile menu and footer carry the full

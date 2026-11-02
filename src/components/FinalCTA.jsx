@@ -29,7 +29,7 @@ export default function FinalCTA() {
   return (
     <section className="final-cta" ref={sectionRef}>
       <div className="final-cta-image" ref={imageWrapperRef}>
-        <img ref={imageRef} src={IMAGES.finalCTA} alt="Campus of Star of Bethlehem International School" loading="lazy" />
+        <img ref={imageRef} src={IMAGES.finalCTA} alt="Campus of Star of Bethlehem International School" loading="lazy" decoding="async" />
       </div>
       <div className="final-cta-overlay" />
 

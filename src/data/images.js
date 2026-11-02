@@ -6,24 +6,27 @@
  * Student Life > Sports and News > Sports).
  */
 
-import heroStudents from "../assets/images/hero-students.jpeg";
-import campusAdminBlock from "../assets/images/campus-admin-block.jpeg";
-import classroomCelebration from "../assets/images/classroom-celebration.jpeg";
-import sportsDay from "../assets/images/sports-day.jpeg";
-import museumTrip from "../assets/images/museum-trip.jpeg";
-import potteryCraft from "../assets/images/pottery-craft.jpeg";
-import graduation2025 from "../assets/images/graduation-2025.jpeg";
-import competitionTrophy from "../assets/images/competition-trophy.jpeg";
-import edu from "../assets/images/edu.jpg";
-import education from "../assets/images/education.jpeg"
-import early from "../assets/images/early.jpg"
-import prim from "../assets/images/prim.jpg"
-import jhs from "../assets/images/jhs.jpg"
-import safe from "../assets/images/safe.jpg"
-import sport from "../assets/images/sport.jpg"
-import lead from "../assets/images/lead.jpg"
-import comp from "../assets/images/comp.jpg"
-import grad from "../assets/images/grad.jpg"
+import campusAdminBlock from "../assets/images/campus-admin-block.webp";
+import classroomCelebration from "../assets/images/classroom-celebration.webp";
+import sportsDay from "../assets/images/sports-day.webp";
+import museumTrip from "../assets/images/museum-trip.webp";
+import potteryCraft from "../assets/images/pottery-craft.webp";
+import graduation2025 from "../assets/images/graduation-2025.webp";
+import competitionTrophy from "../assets/images/competition-trophy.webp";
+import edu from "../assets/images/edu.webp";
+import education from "../assets/images/education.webp"
+import early from "../assets/images/early.webp"
+import prim from "../assets/images/prim.webp"
+import jhs from "../assets/images/jhs.webp"
+import safe from "../assets/images/safe.webp"
+import sport from "../assets/images/sport.webp"
+import lead from "../assets/images/lead.webp";
+import comp from "../assets/images/comp.webp"
+import grad from "../assets/images/grad.webp"
+
+// Lives in /public (fixed URL) so index.html can preload it for a faster
+// first paint — see the <link rel="preload"> there.
+const heroStudents = "/hero-students.webp";
 
 export const IMAGES = {
   heroStudents,

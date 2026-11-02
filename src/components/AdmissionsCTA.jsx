@@ -30,7 +30,7 @@ export default function AdmissionsCTA() {
 
   return (
     <section id="admissions" className="admissions-cta section" ref={sectionRef}>
-      <img className="admissions-bg" src={IMAGES.admissionsBg} alt="" aria-hidden="true" loading="lazy" />
+      <img className="admissions-bg" src={IMAGES.admissionsBg} alt="" aria-hidden="true" loading="lazy" decoding="async" />
       <div className="admissions-overlay" />
 
       <div className="container admissions-layout">
@@ -70,7 +70,7 @@ export default function AdmissionsCTA() {
 
         <div className="admissions-visual" ref={visualRef}>
           <div className="admissions-arch">
-            <img src={IMAGES.admissionsPhoto} alt="Proud graduates with their families and teachers" loading="lazy" />
+            <img src={IMAGES.admissionsPhoto} alt="Proud graduates with their families and teachers" loading="lazy" decoding="async" />
           </div>
 
           <svg className="admissions-seal" viewBox="0 0 120 120" aria-hidden="true">

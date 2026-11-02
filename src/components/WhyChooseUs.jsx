@@ -72,7 +72,7 @@ export default function WhyChooseUs() {
     <section id="why-us" className="why-section" ref={sectionRef}>
       <div className="why-pinned">
         <div className="why-image-col">
-          <img src={IMAGES.whyChooseMain} alt="Students engaged in learning at Star of Bethlehem International School" />
+          <img src={IMAGES.whyChooseMain} alt="Students engaged in learning at Star of Bethlehem International School" loading="lazy" decoding="async" />
           <div className="why-image-overlay" />
         </div>
 
@@ -96,7 +96,7 @@ export default function WhyChooseUs() {
             ))}
           </div>
 
-          <div className="why-progress" role="progressbar" aria-valuenow={active + 1} aria-valuemin={1} aria-valuemax={BENEFITS.length}>
+          <div className="why-progress" role="progressbar" aria-label="Benefit highlighted" aria-valuenow={active + 1} aria-valuemin={1} aria-valuemax={BENEFITS.length}>
             {BENEFITS.map((benefit, i) => (
               <span key={benefit.title} className={i === active ? "is-active" : ""} />
             ))}
@@ -107,7 +107,7 @@ export default function WhyChooseUs() {
       <div className="why-mobile">
         <div className="container">
           <div className="why-mobile-image">
-            <img src={IMAGES.whyChooseMain} alt="Students engaged in learning at Star of Bethlehem International School" />
+            <img src={IMAGES.whyChooseMain} alt="Students engaged in learning at Star of Bethlehem International School" loading="lazy" decoding="async" />
           </div>
           <span className="eyebrow">Why Families Choose Us</span>
           <h2 className="section-heading">

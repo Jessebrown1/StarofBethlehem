@@ -23,6 +23,10 @@
   color: #ffffff;
 }
 
+.why-mobile .section-heading .accent {
+  color: #e9cf70;
+}
+
 .why-mobile-image {
   border-radius: var(--radius-lg);
   overflow: hidden;
@@ -65,7 +69,7 @@
 }
 
 .why-benefit-mobile p {
-  color: rgba(255, 255, 255, 0.72);
+  color: rgba(255, 255, 255, 0.78);
   font-size: 0.88rem;
 }
 
@@ -81,7 +85,8 @@
   border: 1px solid var(--glass-border-dark);
   font-family: var(--font-display);
   font-size: 0.85rem;
-  color: var(--gold-accent);
+  /* Literal light gold: --gold-accent is too dim on the lightened glass card (3.9:1). */
+  color: #e9cf70;
 }
 
 /* ---------- Desktop pinned experience ---------- */
@@ -151,7 +156,6 @@
     display: flex;
     align-items: flex-start;
     gap: 1.3rem;
-    opacity: 0.45;
     padding: 1rem 1.2rem;
     border-radius: var(--radius-md);
     background: transparent;
@@ -169,19 +173,32 @@
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12);
   }
 
+  /* Inactive items are dimmed through text colour rather than opacity:
+     opacity also fades the gold index number and drops it below the
+     4.5:1 contrast minimum. */
   .why-benefit h3 {
     /* Literal white: this whole section sits on a constant deep-green
-     background regardless of site theme (see .why-section above), so
-     text here must not invert to a dark color in dark mode. */
-  color: #ffffff;
+       background regardless of site theme (see .why-section above), so
+       text here must not invert to a dark color in dark mode. */
+    color: rgba(255, 255, 255, 0.78);
     font-size: 1.15rem;
     margin-bottom: 0.35rem;
+    transition: color var(--transition-base);
   }
 
   .why-benefit p {
-    color: rgba(255, 255, 255, 0.72);
+    color: rgba(255, 255, 255, 0.68);
     font-size: 0.9rem;
     max-width: 420px;
+    transition: color var(--transition-base);
+  }
+
+  .why-benefit.is-active h3 {
+    color: #ffffff;
+  }
+
+  .why-benefit.is-active p {
+    color: rgba(255, 255, 255, 0.82);
   }
 
   .why-benefit-index {
@@ -196,7 +213,7 @@
     border: 1px solid var(--glass-border-dark);
     font-family: var(--font-display);
     font-size: 0.9rem;
-    color: var(--gold-accent);
+    color: #e9cf70;
   }
 
   .why-progress {

@@ -57,7 +57,7 @@ export default function StudentLife() {
             {ITEMS.map((item) => (
               <article className="student-life-card" key={item.title}>
                 <div className="student-life-card-image">
-                  <img src={item.image} alt={`${item.title} at Star of Bethlehem International School`} loading="lazy" />
+                  <img src={item.image} alt={`${item.title} at Star of Bethlehem International School`} loading="lazy" decoding="async" />
                 </div>
                 <h3>{item.title}</h3>
                 <p>{item.description}</p>
@@ -79,7 +79,7 @@ export default function StudentLife() {
           {ITEMS.map((item) => (
             <article className="student-life-card-mobile" key={item.title}>
               <div className="student-life-card-image">
-                <img src={item.image} alt={`${item.title} at Star of Bethlehem International School`} loading="lazy" />
+                <img src={item.image} alt={`${item.title} at Star of Bethlehem International School`} loading="lazy" decoding="async" />
               </div>
               <h3>{item.title}</h3>
               <p>{item.description}</p>

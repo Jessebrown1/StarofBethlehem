@@ -53,13 +53,13 @@ export function playHeroTimeline(refs) {
     tl.fromTo(
       refs.imageWrapper,
       { clipPath: clipFrom, webkitClipPath: clipFrom },
-      { clipPath: "inset(0 0 0 0%)", webkitClipPath: "inset(0 0 0 0%)", duration: 1.2, ease: "expo.out" },
-      0.7
+      { clipPath: "inset(0 0 0 0%)", webkitClipPath: "inset(0 0 0 0%)", duration: 0.9, ease: "expo.out" },
+      0.1
     );
   }
 
   if (refs.image) {
-    tl.fromTo(refs.image, { scale: 1.08 }, { scale: 1, duration: 1.6, ease: "expo.out" }, 0.7);
+    tl.fromTo(refs.image, { scale: 1.08 }, { scale: 1, duration: 1.4, ease: "expo.out" }, 0.1);
   }
 
   if (refs.decor) {

@@ -53,7 +53,7 @@ export default function AcademicPrograms() {
           {PROGRAMS.map((program, i) => (
             <article className="academic-card" key={program.title} ref={(el) => (cardsRef.current[i] = el)}>
               <div className="academic-card-image">
-                <img src={program.image} alt={`${program.title} students at Star of Bethlehem International School`} loading="lazy" />
+                <img src={program.image} alt={`${program.title} students at Star of Bethlehem International School`} loading="lazy" decoding="async" />
               </div>
               <div className="academic-card-body">
                 <span className="academic-card-range">{program.range}</span>

@@ -66,6 +66,10 @@ export default function Hero() {
               ref={imageRef}
               className="hero-image"
               src={IMAGES.heroStudents}
+              width="900"
+              height="675"
+              fetchPriority="high"
+              decoding="async"
               alt="Students of Star of Bethlehem International School in their school uniform on campus"
             />
           </div>

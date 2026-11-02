@@ -142,7 +142,7 @@ export default function SafetyCare() {
               ref={photoRef}
               src={IMAGES.safetyCare}
               alt="Happy students together in a supervised classroom"
-              loading="lazy"
+              loading="lazy" decoding="async"
             />
             <span className="safety-badge">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">

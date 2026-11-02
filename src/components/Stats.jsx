@@ -34,7 +34,7 @@ export default function Stats() {
 
   return (
     <section className="stats-section" ref={sectionRef} aria-label="School statistics">
-      <img className="stats-bg" src={IMAGES.finalCTA} alt="" aria-hidden="true" loading="lazy" />
+      <img className="stats-bg" src={IMAGES.finalCTA} alt="" aria-hidden="true" loading="lazy" decoding="async" />
       <div className="stats-overlay" />
 
       <div className="container stats-grid">

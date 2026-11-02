@@ -1,57 +1,187 @@
+/* Permanently dark section: literal colours, independent of the theme. */
 .final-cta {
   position: relative;
-  min-height: 78vh;
-  display: flex;
-  align-items: center;
   overflow: hidden;
-  text-align: center;
+  background:
+    radial-gradient(ellipse at 15% 20%, rgba(233, 207, 112, 0.12), transparent 50%),
+    #072a20;
+  padding: clamp(4rem, 8vw, 7rem) 0 clamp(2.5rem, 4vw, 3.5rem);
 }
 
 .final-cta-image {
   position: absolute;
-  inset: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 58%;
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 55%);
+  mask-image: linear-gradient(to right, transparent 0%, #000 55%);
 }
 
 .final-cta-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-}
-
-.final-cta-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, rgba(11, 61, 46, 0.65) 0%, rgba(11, 61, 46, 0.88) 100%);
+  object-position: center 30%;
+  opacity: 0.75;
 }
 
 .final-cta-content {
   position: relative;
   z-index: 1;
-  max-width: 680px;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+}
+
+.final-cta-main {
+  max-width: 620px;
+}
+
+.final-cta-kicker {
+  display: inline-block;
+  margin-bottom: 1.3rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #e9cf70;
+}
+
+.final-cta-kicker::before {
+  content: "";
+  display: inline-block;
+  width: 36px;
+  height: 2px;
+  margin-right: 0.8rem;
+  vertical-align: middle;
+  background: #e9cf70;
 }
 
 .final-cta-heading {
-  font-size: clamp(2.4rem, 5vw, 4rem);
-  /* Literal white: always on a photo + dark overlay, regardless of
-     site theme. */
+  font-size: clamp(2.6rem, 6vw, 5rem);
+  line-height: 1.04;
   color: #ffffff;
   white-space: pre-line;
 }
 
-.final-cta-content > p {
-  margin-top: 1.4rem;
-  color: rgba(255, 255, 255, 0.82);
-  max-width: 480px;
+.final-cta-heading > span:last-child {
+  color: #e9cf70;
+}
+
+.final-cta-main > p {
+  margin-top: 1.5rem;
+  max-width: 460px;
+  font-size: 1.05rem;
+  color: rgba(255, 255, 255, 0.78);
 }
 
 .final-cta-buttons {
   display: flex;
-  gap: 1rem;
-  margin-top: 2.2rem;
   flex-wrap: wrap;
-  justify-content: center;
+  gap: 0.9rem;
+  margin-top: 2.2rem;
+}
+
+.final-cta-primary,
+.final-cta-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.95rem 1.8rem;
+  border-radius: 999px;
+  font: inherit;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base);
+}
+
+.final-cta-primary {
+  border: 0;
+  background: #e9cf70;
+  color: #0b3d2e;
+}
+
+.final-cta-primary:hover,
+.final-cta-primary:focus-visible {
+  background: #f3dd8a;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
+}
+
+.final-cta-secondary {
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  background: rgba(7, 42, 32, 0.4);
+  color: #ffffff;
+}
+
+.final-cta-secondary:hover,
+.final-cta-secondary:focus-visible {
+  border-color: #ffffff;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.final-cta-strip {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin: clamp(3rem, 6vw, 5rem) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.final-cta-strip a,
+.final-cta-strip button {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.2rem;
+  width: 100%;
+  height: 100%;
+  padding: 1.3rem 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 20px;
+  background: rgba(7, 42, 32, 0.72);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  font: inherit;
+  font-size: 0.85rem;
+  text-align: left;
+  color: rgba(255, 255, 255, 0.72);
+  cursor: pointer;
+  transition: border-color var(--transition-base), background var(--transition-base);
+}
+
+.final-cta-strip a:hover,
+.final-cta-strip a:focus-visible,
+.final-cta-strip button:hover,
+.final-cta-strip button:focus-visible {
+  border-color: #e9cf70;
+  background: rgba(7, 42, 32, 0.92);
+}
+
+.final-cta-strip strong {
+  font-size: 1.05rem;
+  color: #ffffff;
+}
+
+.final-cta-strip-num {
+  margin-bottom: 0.4rem;
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #e9cf70;
+}
+
+@media (max-width: 992px) {
+  .final-cta-image {
+    width: 100%;
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+
+  .final-cta-image img {
+    opacity: 0.28;
+  }
+
+  .final-cta-strip {
+    grid-template-columns: 1fr;
+  }
 }

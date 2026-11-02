@@ -1,5 +1,4 @@
-import { useLayoutEffect, useState } from "react";
-import { ScrollTrigger } from "../animations/gsapSetup";
+import { useEffect, useState } from "react";
 import "./WhatsAppButton.css";
 
 // Reuses the "Mobile / WhatsApp" number already placeholder'd in
@@ -12,18 +11,27 @@ export default function WhatsAppButton() {
   const [visible, setVisible] = useState(false);
   const href = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(PREFILLED_MESSAGE)}`;
 
-  useLayoutEffect(() => {
-    const st = ScrollTrigger.create({
-      trigger: "#contact",
-      start: "top 80%",
-      end: "bottom top",
-      onEnter: () => setVisible(true),
-      onLeave: () => setVisible(false),
-      onEnterBack: () => setVisible(true),
-      onLeaveBack: () => setVisible(false),
-    });
-
-    return () => st.kill();
+  // #contact mounts later than this button (below-the-fold chunk is
+  // deferred), so a selector-based ScrollTrigger would never find it.
+  // Show the button from the moment Contact nears the viewport onward.
+  useEffect(() => {
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      const contact = document.getElementById("contact");
+      setVisible(Boolean(contact) && contact.getBoundingClientRect().top < window.innerHeight * 0.8);
+    };
+    const onScroll = () => {
+      if (!frame) frame = requestAnimationFrame(update);
+    };
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      if (frame) cancelAnimationFrame(frame);
+    };
   }, []);
 
   return (

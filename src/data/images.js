@@ -23,7 +23,7 @@ import sport from "../assets/images/sport.webp"
 import lead from "../assets/images/lead.webp";
 import comp from "../assets/images/comp.webp"
 import grad from "../assets/images/grad.webp"
-
+import trip from "../assets/images/trip.webp"
 // Lives in /public (fixed URL) so index.html can preload it for a faster
 // first paint — see the <link rel="preload"> there.
 const heroStudents = "/hero-students.webp";
@@ -56,5 +56,5 @@ export const IMAGES = {
 
 
 
-  finalCTA: graduation2025,
+  finalCTA: trip,
 };
